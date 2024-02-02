@@ -1,0 +1,22 @@
+.base-button {
+  @include flex($justify: center, $align: center);
+  position: relative;
+  min-height: 40px;
+  cursor: pointer;
+  padding: space(4);
+  border-radius: $border-radius-xl;
+  @include typography(title-large);
+  &_filled {
+    color: var(--color-text-secondary-100);
+    background-color: var(--color-palette-primary-400);
+  }
+  // TODO : complete this styles
+  &_outlined {
+  }
+  &_text {
+  }
+
+  &_block {
+    width: 100%;
+  }
+}
