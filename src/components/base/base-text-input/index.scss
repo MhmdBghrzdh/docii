@@ -1,0 +1,72 @@
+.base-input {
+  width: 100%;
+  height: 3.5rem;
+  border-radius: $border-radius-md;
+  background-color: var(--color-background-secondary);
+  padding: space(2.5) space(4);
+  @include flex($justify: space-between);
+
+  --input-color: var(--color-text-secondary-500);
+
+  border: solid 1px var(--input-color);
+  &__label {
+  }
+  &__input {
+    width: 100%;
+    background-color: transparent;
+    padding: 0 space(2);
+    height: 100%;
+    ::-webkit-input-placeholder {
+      /* WebKit, Blink, Edge */
+      color: #909;
+    }
+    :-moz-placeholder {
+      /* Mozilla Firefox 4 to 18 */
+      color: #909;
+      opacity: 1;
+    }
+    ::-moz-placeholder {
+      /* Mozilla Firefox 19+ */
+      color: #909;
+      opacity: 1;
+    }
+    :-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: #909;
+    }
+    ::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: #909;
+    }
+
+    ::placeholder {
+      /* Most modern browsers support this now. */
+      color: #909;
+    }
+    //   color: var(--input-color);
+  }
+  &__prepend-icon {
+    // TODO : this is shit code fix this later
+    height: 100%;
+    stroke: var(--input-color);
+    @include flex($align: center);
+    div {
+      div {
+        @include flex($align: center);
+      }
+    }
+  }
+
+  &__append-icon {
+    height: 100%;
+    stroke: var(--input-color);
+    @include flex($align: center);
+    div {
+      div {
+        @include flex($align: center);
+      }
+    }
+  }
+  &__error-message {
+  }
+}
