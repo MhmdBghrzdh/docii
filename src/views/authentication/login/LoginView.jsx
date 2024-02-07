@@ -31,10 +31,22 @@ function LoginView() {
           appendIcon="EyeSlash"
           name="firstName"
           control={control}
-          rules={{ required: true }}
+          rules={{ required: { value: true, message: 'This field is assa !' } }}
+        />
+        <br />
+        <BaseTextInput
+          placeholder="Enter your name"
+          prependIcon="UserOutline"
+          appendIcon="EyeSlash"
+          name="lastName"
+          control={control}
+          rules={{ required: { value: true, message: 'This field is required !' } }}
         />
         {/* Other form fields */}
-        <button type="submit">Submit</button>
+        <br />
+        <BaseButton isLoading={test} type="submit">
+          submit
+        </BaseButton>
       </form>
     </>
   )
