@@ -16,11 +16,10 @@ const BaseTextInput = ({
   ...props
 }) => {
   const {
-    field,
+    field = { value: '', onChange: () => {}, onBlur: () => {} },
     fieldState: { invalid, isTouched, isDirty },
     formState: { errors }
   } = useController({ name, control, rules })
-
   return (
     <div className="base-input">
       {label && (
@@ -44,9 +43,7 @@ const BaseTextInput = ({
           <BaseIcon name={appendIcon} />
         </div>
       )}
-      {errors[name] && isTouched && (
-        <span className="base-input__error-message">{errors[name].message}</span>
-      )}
+      {errors[name] && <span className="base-input__error-message">{errors[name].message}</span>}
     </div>
   )
 }
