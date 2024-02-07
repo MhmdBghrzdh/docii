@@ -13,9 +13,13 @@ function BaseButton({
   const buttonBaseClass = 'base-button'
   const buttonVariant = `base-button_${variant}`
   const buttonIsBlock = isBlock ? 'base-button_block' : ''
+  const buttonDisable = isLoading ? 'base-button_disable' : ''
 
   return (
-    <button className={`${buttonBaseClass} ${buttonVariant} ${buttonIsBlock}`} type={type}>
+    <button
+      className={`${buttonBaseClass} ${buttonVariant} ${buttonIsBlock} ${buttonDisable}`}
+      type={type}
+    >
       {isLoading ? <LoadingSpinner /> : children}
     </button>
   )
