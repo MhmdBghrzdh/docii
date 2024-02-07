@@ -28,4 +28,14 @@
       }
     }
   }
+
+  @each $theme, $colors in $alert {
+    &[theme='#{$theme}'] {
+      @each $name, $color in $colors {
+        @each $key, $value in $color {
+          --color-#{$name}-#{$key}: #{$value};
+        }
+      }
+    }
+  }
 }

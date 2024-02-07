@@ -98,3 +98,36 @@ $background: (
     overlay: #f9fafb
   )
 );
+
+$alert: (
+  light: (
+    info: (
+      5: #f2f9ff,
+      15: #d9edff,
+      100: #0085ff
+    ),
+    error: (
+      5: #f5d9e0,
+      100: #ff0000
+    ),
+    success: (
+      5: #daf5ed,
+      100: #00bf7a
+    )
+  ),
+  dark: (
+    info: (
+      5: #f2f9ff,
+      15: #d9edff,
+      100: #0085ff
+    ),
+    error: (
+      5: #f5d9e0,
+      100: #bf002e
+    ),
+    success: (
+      5: #daf5ed,
+      100: #00bf7a
+    )
+  )
+);

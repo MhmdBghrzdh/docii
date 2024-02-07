@@ -50,16 +50,6 @@ picture {
   display: block;
 }
 
-/* Inherit fonts for inputs and buttons */
-input,
-button,
-textarea,
-article,
-select {
-  font: inherit;
-  -webkit-tap-highlight-color: transparent;
-}
-
 button,
 textarea,
 input {
