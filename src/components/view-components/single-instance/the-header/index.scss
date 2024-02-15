@@ -1,0 +1,13 @@
+.header {
+  @include flex($justify: center);
+  padding: space(5);
+  position: relative;
+  &__title {
+    text-align: center;
+  }
+  &__icon {
+    position: absolute;
+    left: space(10);
+    top: space(9);
+  }
+}

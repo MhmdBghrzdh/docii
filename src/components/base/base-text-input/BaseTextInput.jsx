@@ -16,30 +16,25 @@ const BaseTextInput = ({
   ...props
 }) => {
   const {
-    field = { value: '', onChange: () => {}, onBlur: () => {} },
-    fieldState: { invalid, isTouched, isDirty },
+    field,
     formState: { errors }
   } = useController({ name, control, rules })
+  const BaseTextInputError = errors[name] ? 'base-input_error' : ''
   return (
-    <div className="base-input">
+    <div className={`base-input ${BaseTextInputError}`}>
       {label && (
         <label htmlFor={name} className="base-input__label">
           {label}
         </label>
       )}
       {prependIcon && (
-        <div className="base-input__prepend-icon">
+        <div className="base-input__icon">
           <BaseIcon name={prependIcon} />
         </div>
       )}
-      <input
-        {...field}
-        {...props}
-        placeholder={placeholder}
-        className={`base-input__input ${invalid && isTouched ? 'is-invalid' : ''}`}
-      />
+      <input {...field} {...props} placeholder={placeholder} className="base-input__input" />
       {appendIcon && (
-        <div className="base-input__append-icon">
+        <div className="base-input__icon">
           <BaseIcon name={appendIcon} />
         </div>
       )}
@@ -54,7 +49,8 @@ BaseTextInput.propTypes = {
   placeholder: PropTypes.string,
   prependIcon: PropTypes.string,
   appendIcon: PropTypes.string,
-  rules: PropTypes.object
+  rules: PropTypes.object,
+  control: PropTypes.object
 }
 
 export default BaseTextInput

@@ -1,0 +1,9 @@
+.signup-form {
+  @include flex(column);
+  gap: space(6);
+
+  &__text-mark {
+    color: var(--color-palette-primary-400);
+    background-color: transparent;
+  }
+}

@@ -7,41 +7,55 @@
   @include flex($justify: space-between);
   position: relative;
   --input-color: var(--color-text-secondary-500);
+  --border-color: var(--color-background-tertiary);
+  --message-color: var(--color-error-100);
 
-  border: solid 1px var(--input-color);
-  &__label {
+  border: solid 1px var(--border-color);
+
+  &_error {
+    --input-color: var(--color-error-100);
+    --border-color: var(--color-error-100);
   }
+
   &__input {
     width: 100%;
     height: 100%;
+    &::placeholder {
+      color: var(--input-color);
+    }
     background-color: transparent;
     padding: 0 space(2);
-  }
-  &__prepend-icon {
-    // TODO : this is shit code fix this later
-    height: 100%;
-    stroke: var(--input-color);
-    @include flex($align: center);
-    div {
-      div {
-        @include flex($align: center);
-      }
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0px 1000px var(--color-background-secondary) inset;
     }
   }
 
-  &__append-icon {
+  &:has(&__input:focus) {
+    --input-color: var(--color-palette-primary-400);
+    --border-color: var(--color-palette-primary-400);
+    --message-color: var(--color-palette-primary-400);
+  }
+  &__icon {
+    // TODO : this is shit code fix this later
     height: 100%;
-    stroke: var(--input-color);
+
     @include flex($align: center);
-    div {
-      div {
-        @include flex($align: center);
+    > div > div {
+      @include flex($align: center);
+      width: space(6);
+      height: space(6);
+      svg,
+      path {
+        stroke: var(--input-color);
       }
     }
   }
   &__error-message {
     position: absolute;
-    color: var(--color-error-100);
+    color: var(--message-color);
     bottom: -20px;
     @include typography(body-small);
   }
