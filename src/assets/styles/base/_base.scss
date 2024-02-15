@@ -2,19 +2,17 @@
 
 #root {
   margin: 0;
-  height: 100%;
   font-family: $ff-primary $ff-secondary;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: rgba(0, 0, 0, 0.87);
   color: var(--color-text-primary);
-  background-color: var(--color-background-secondary);
+  background-color: var(--color-background-primary);
 }
 
 html,
 body {
-  height: 100%;
   margin: 0;
 }
 

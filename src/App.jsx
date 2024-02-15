@@ -2,9 +2,11 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 
 import DefaultLayout from '@/layouts/default-layout/DefaultLayout'
-import LoginView from '@/views/authentication/login/LoginView.jsx'
-import SignupView from '@/views/authentication/signup/SignupView.jsx'
-import ForgotPasswordView from '@/views/authentication/forgot-password/ForgotPasswordView.jsx'
+import SignupFormView from '@/views/authentication/signup/signup-form/SignupFormView'
+import SignupOtpView from '@/views/authentication/signup/signup-otp/SignupOtpView'
+import SignupRoot from '@/views/authentication/signup/signup-root/SignupRoot'
+import LoginView from '@/views/authentication/login/LoginView'
+import ForgotPasswordView from '@/views/authentication/forgot-password/ForgotPasswordView'
 
 const router = createBrowserRouter([
   {
@@ -12,8 +14,18 @@ const router = createBrowserRouter([
     element: <DefaultLayout />,
     children: [
       {
+        element: <SignupRoot />,
         path: 'signup',
-        element: <SignupView />
+        children: [
+          {
+            path: '',
+            element: <SignupFormView />
+          },
+          {
+            path: 'otp',
+            element: <SignupOtpView />
+          }
+        ]
       },
       {
         path: 'login',

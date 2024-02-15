@@ -22,5 +22,9 @@
   }
   &_disable {
     cursor: not-allowed;
+    background-color: var(--color-palette-primary-200);
+  }
+  &_loading {
+    cursor: not-allowed;
   }
 }

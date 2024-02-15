@@ -44,13 +44,13 @@ const BaseTextInput = ({
 }
 
 BaseTextInput.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   label: PropTypes.string,
   placeholder: PropTypes.string,
   prependIcon: PropTypes.string,
   appendIcon: PropTypes.string,
   rules: PropTypes.object,
-  control: PropTypes.object
+  control: PropTypes.object.isRequired
 }
 
 export default BaseTextInput

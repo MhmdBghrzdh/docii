@@ -12,9 +12,9 @@ function DefaultLayout() {
   const title = useRouteTitle(location.pathname)
 
   return (
-    <>
+    <div className="default-layout">
       <TheHeader title={title} prependIcon="ArrowLeft" />
-      <main className="main">
+      <main className="default-layout__main">
         <Outlet />
       </main>
       <ToastContainer
@@ -30,7 +30,7 @@ function DefaultLayout() {
         theme="colored"
         transition={Bounce}
       />
-    </>
+    </div>
   )
 }
 

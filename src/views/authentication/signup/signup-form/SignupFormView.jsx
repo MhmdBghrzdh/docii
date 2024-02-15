@@ -102,9 +102,11 @@ function SignupView() {
         I agree to the medidoc <mark className="signup-form__text-mark">Terms of Service</mark> and{' '}
         <mark className="signup-form__text-mark">Privacy Policy</mark>
       </BaseCheckBox>
-      <BaseButton type="submit" isLoading={isLoading}>
-        Sign Up
-      </BaseButton>
+      <div className="signup-form__submit-wrapper">
+        <BaseButton type="submit" isLoading={isLoading}>
+          Sign Up
+        </BaseButton>
+      </div>
     </form>
   )
 }

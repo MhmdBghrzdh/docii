@@ -8,16 +8,18 @@ function BaseButton({
   isBlock = true,
   isLoading = false,
   type = 'button',
+  disabled = false,
   children
 }) {
   const buttonBaseClass = 'base-button'
   const buttonVariant = `base-button_${variant}`
   const buttonIsBlock = isBlock ? 'base-button_block' : ''
-  const buttonDisable = isLoading ? 'base-button_disable' : ''
+  const buttonDisable = disabled ? 'base-button_disable' : ''
+  const buttonLoading = isLoading ? 'base-button_loading' : ''
 
   return (
     <button
-      className={`${buttonBaseClass} ${buttonVariant} ${buttonIsBlock} ${buttonDisable}`}
+      className={`${buttonBaseClass} ${buttonVariant} ${buttonIsBlock} ${buttonDisable} ${buttonLoading}`}
       type={type}
     >
       {isLoading ? <LoadingSpinner /> : children}
@@ -31,5 +33,6 @@ BaseButton.propTypes = {
   isBlock: PropTypes.bool,
   isLoading: PropTypes.bool,
   type: PropTypes.string,
-  children: PropTypes.string
+  children: PropTypes.string,
+  disabled: PropTypes.bool
 }
