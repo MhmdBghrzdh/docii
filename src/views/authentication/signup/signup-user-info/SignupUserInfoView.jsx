@@ -46,7 +46,6 @@ function SignupUserInfoView() {
     }
     return true
   }
-  console.log(profileStore)
 
   const onSubmit = async (data) => {
     try {
@@ -58,11 +57,10 @@ function SignupUserInfoView() {
         password: data.password,
         phoneNumber: profileStore.phoneNumber
       })
-      console.log(payloadSignup)
       dispatch(setProfile(data))
-      // const response = await dispatch(signup(payloadSignup))
-      // if (response?.error) throw new Error(response)
-      // navigate('/')
+      const response = await dispatch(signup(payloadSignup))
+      if (response?.error) throw new Error(response)
+      navigate('/')
     } catch (error) {
       console.log(error)
     } finally {

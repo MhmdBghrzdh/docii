@@ -26,9 +26,8 @@ function SignupOtpView() {
   const onSubmit = async (data) => {
     try {
       const payload = verifyOtpMapper(data.otp, profileStore.phoneNumber)
-      console.log(payload)
-      // const response = await dispatch(verifyOtp(payload))
-      // if (response?.error) throw new Error(response)
+      const response = await dispatch(verifyOtp(payload))
+      if (response?.error) throw new Error(response)
       navigate('/signup/user-info')
     } catch (error) {
       console.log(error)

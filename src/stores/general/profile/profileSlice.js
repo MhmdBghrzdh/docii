@@ -1,10 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialValues = localStorage.getItem('profile')
+const initialState = localStorage.getItem('profile')
   ? JSON.parse(localStorage.getItem('profile'))
   : {}
-
-const initialState = initialValues
 
 const profileSlice = createSlice({
   name: 'profile',

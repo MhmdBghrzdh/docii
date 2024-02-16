@@ -26,8 +26,8 @@ function SignupPhoneNumberView() {
     try {
       setIsLoading(true)
       const payload = requestOtpMapper(data.phoneNumber)
-      // const response = await dispatch(requestOtp(payload))
-      // if (response?.error) throw new Error(response)
+      const response = await dispatch(requestOtp(payload))
+      if (response?.error) throw new Error(response)
       dispatch(setPhoneNumber(data.phoneNumber))
       navigate('otp')
     } catch (error) {
