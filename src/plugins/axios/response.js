@@ -7,8 +7,12 @@ export const onResponseFulfilled = (response) => {
 }
 
 export const onResponseRejected = async (error) => {
-  const messageError =
-    error?.response?.data?.message || error?.response?.data?.message[0] || AXIOS_DEFAULT_ERROR.en
+  const errorMessage =
+    typeof error?.response?.data?.message === 'string'
+      ? error?.response?.data?.message
+      : error?.response?.data?.message[0]
+
+  const messageError = errorMessage || AXIOS_DEFAULT_ERROR.en
 
   if (messageError) {
     toast.error(messageError)

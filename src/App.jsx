@@ -2,8 +2,9 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 
 import DefaultLayout from '@/layouts/default-layout/DefaultLayout'
-import SignupFormView from '@/views/authentication/signup/signup-form/SignupFormView'
+import SignupPhoneNumberView from '@/views/authentication/signup/signup-phone-number/SignupPhoneNumberView'
 import SignupOtpView from '@/views/authentication/signup/signup-otp/SignupOtpView'
+import SignupUserInfoView from '@/views/authentication/signup/signup-user-info/SignupUserInfoView'
 import SignupRoot from '@/views/authentication/signup/signup-root/SignupRoot'
 import LoginView from '@/views/authentication/login/LoginView'
 import ForgotPasswordView from '@/views/authentication/forgot-password/ForgotPasswordView'
@@ -19,11 +20,15 @@ const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <SignupFormView />
+            element: <SignupPhoneNumberView />
           },
           {
             path: 'otp',
             element: <SignupOtpView />
+          },
+          {
+            path: 'user-info',
+            element: <SignupUserInfoView />
           }
         ]
       },
@@ -40,24 +45,7 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  return (
-    <>
-      <RouterProvider router={router} />
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-        transition={Bounce}
-      />
-    </>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App

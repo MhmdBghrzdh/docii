@@ -20,7 +20,8 @@
   &_block {
     width: 100%;
   }
-  &_disable {
+
+  &:disabled {
     cursor: not-allowed;
     background-color: var(--color-palette-primary-200);
   }

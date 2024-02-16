@@ -1,6 +1,7 @@
 .base-input {
   width: 100%;
   height: 3.5rem;
+  transition: all 0.05s;
   border-radius: $border-radius-md;
   background-color: var(--color-background-secondary);
   padding: space(2.5) space(4);
@@ -36,7 +37,7 @@
   &:has(&__input:focus) {
     --input-color: var(--color-palette-primary-400);
     --border-color: var(--color-palette-primary-400);
-    --message-color: var(--color-palette-primary-400);
+    border: solid 1.5px var(--border-color);
   }
   &__icon {
     // TODO : this is shit code fix this later

@@ -1,27 +1,32 @@
 import './index.scss'
 
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import BaseTextInput from '@/components/base/base-text-input/BaseTextInput'
 import BaseButton from '@/components/base/base-button/BaseButton'
 import BaseCheckBox from '@/components/base/base-check-box/BaseCheckBox'
 
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { setProfile } from '@/stores/general/profile/profileSlice'
 import { signup } from '@/stores/authentication/signup/signupSlice'
-import { Link } from 'react-router-dom'
 
-function SignupView() {
+import { signupMapper } from '@/mappers/authentication'
+
+function SignupUserInfoView() {
   const defaultValues = {
+    nationalCode: '',
     firstName: '',
     lastName: '',
-    phoneNumber: '',
     password: '',
     acceptTerms: false
   }
-  const { control, handleSubmit } = useForm({ defaultValues })
+  const { control, handleSubmit, watch } = useForm({ defaultValues })
   const [isLoading, setIsLoading] = useState(false)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const profileStore = useSelector((state) => state.profile)
 
   const validatePassword = (value) => {
     if (!value) {
@@ -41,17 +46,23 @@ function SignupView() {
     }
     return true
   }
+  console.log(profileStore)
 
   const onSubmit = async (data) => {
     try {
       setIsLoading(true)
-      const payload = {
+      const payloadSignup = signupMapper({
+        nationalCode: data.nationalCode,
         firstName: data.firstName,
         lastName: data.lastName,
-        mobileNumber: data.phoneNumber,
-        password: data.password
-      }
-      await dispatch(signup(payload))
+        password: data.password,
+        phoneNumber: profileStore.phoneNumber
+      })
+      console.log(payloadSignup)
+      dispatch(setProfile(data))
+      // const response = await dispatch(signup(payloadSignup))
+      // if (response?.error) throw new Error(response)
+      // navigate('/')
     } catch (error) {
       console.log(error)
     } finally {
@@ -61,6 +72,19 @@ function SignupView() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="signup-form">
+      <BaseTextInput
+        placeholder="Enter your national code"
+        prependIcon="Barcode"
+        name="nationalCode"
+        control={control}
+        rules={{
+          required: 'national code is required',
+          pattern: {
+            value: /^[0-9]{10}$/,
+            message: 'national code must be 10 digits'
+          }
+        }}
+      />
       <BaseTextInput
         placeholder="Enter your first name"
         prependIcon="UserOutline"
@@ -76,20 +100,6 @@ function SignupView() {
         rules={{ required: 'last name is required' }}
       />
       <BaseTextInput
-        placeholder="Enter your phone number"
-        prependIcon="Phone"
-        name="phoneNumber"
-        type="tel"
-        control={control}
-        rules={{
-          required: 'phone number is required',
-          pattern: {
-            value: /^[0-9]{11}$/,
-            message: 'phone number must be 11 digits'
-          }
-        }}
-      />
-      <BaseTextInput
         placeholder="Enter your password"
         prependIcon="Lock"
         appendIcon="EyeSlash"
@@ -103,7 +113,7 @@ function SignupView() {
         <mark className="signup-form__text-mark">Privacy Policy</mark>
       </BaseCheckBox>
       <div className="signup-form__submit-wrapper">
-        <BaseButton type="submit" isLoading={isLoading}>
+        <BaseButton type="submit" isLoading={isLoading} disabled={!watch('acceptTerms')}>
           Sign Up
         </BaseButton>
       </div>
@@ -111,4 +121,4 @@ function SignupView() {
   )
 }
 
-export default SignupView
+export default SignupUserInfoView

@@ -1,13 +1,16 @@
 import './index.scss'
 
 import { useForm } from 'react-hook-form'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import BaseButton from '@/components/base/base-button/BaseButton'
 import OtpInput from '@/components/general/otp/OtpInput'
 
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { signup } from '@/stores/authentication/signup/signupSlice'
+import { verifyOtp } from '@/stores/general/otp/otpSlice'
+
+import { verifyOtpMapper } from '@/mappers/authentication'
+import { useNavigate } from 'react-router-dom'
 
 function SignupOtpView() {
   const defaultValues = {
@@ -16,11 +19,17 @@ function SignupOtpView() {
   const { control, handleSubmit } = useForm({ defaultValues })
   const [isLoading, setIsLoading] = useState(false)
   const [isOtpCompleted, setIsOtpCompleted] = useState(true)
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  const profileStore = useSelector((state) => state.profile)
 
   const onSubmit = async (data) => {
     try {
-      console.log(data)
+      const payload = verifyOtpMapper(data.otp, profileStore.phoneNumber)
+      console.log(payload)
+      // const response = await dispatch(verifyOtp(payload))
+      // if (response?.error) throw new Error(response)
+      navigate('/signup/user-info')
     } catch (error) {
       console.log(error)
     } finally {
@@ -34,7 +43,10 @@ function SignupOtpView() {
         name="otp"
         numberOfInputs={5}
         control={control}
-        rules={{ required: true }}
+        rules={{
+          required: true,
+          pattern: /^[0-9]{5}$/
+        }}
         setIsOtpCompleted={setIsOtpCompleted}
       />
       <div className="signup-otp__submit-wrapper">

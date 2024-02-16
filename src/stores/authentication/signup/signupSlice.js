@@ -7,9 +7,9 @@ const signupSlice = createSlice({
   name: 'signup',
   initialState,
   reducers: {
-    signup(state, actions) {
-      authenticationServices.signup(actions.payload)
-    }
+    // signup(state, actions) {
+    //   authenticationServices.signup(actions.payload)
+    // }
   }
 })
 
