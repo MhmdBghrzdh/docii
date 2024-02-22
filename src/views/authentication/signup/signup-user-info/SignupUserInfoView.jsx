@@ -55,7 +55,7 @@ function SignupUserInfoView() {
         firstName: data.firstName,
         lastName: data.lastName,
         password: data.password,
-        phoneNumber: profileStore.phoneNumbe
+        phoneNumber: profileStore.phoneNumber
       })
       dispatch(setProfile(data))
       const signupHeaders = { token: profileStore.token }
