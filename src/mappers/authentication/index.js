@@ -9,3 +9,5 @@ export const signupMapper = ({ nationalCode, firstName, lastName, password, phon
   password,
   mobileNumber: phoneNumber
 })
+
+export const loginMapper = ({ nationalCode, password }) => ({ password, nationalId: nationalCode })
