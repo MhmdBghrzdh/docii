@@ -14,6 +14,8 @@ import { signup } from '@/stores/authentication/signup/signupSlice'
 
 import { signupMapper } from '@/mappers/authentication'
 
+import { passwordValidation } from '@/plugins/react-hook-form/validations'
+
 function SignupUserInfoView() {
   const defaultValues = {
     nationalCode: '',
@@ -27,25 +29,6 @@ function SignupUserInfoView() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const profileStore = useSelector((state) => state.profile)
-
-  const validatePassword = (value) => {
-    if (!value) {
-      return 'Password is required'
-    }
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters long'
-    }
-    if (!/(?=.*[A-Z])/.test(value)) {
-      return 'Password must contain at least one uppercase letter'
-    }
-    if (!/(?=.*\d)/.test(value)) {
-      return 'Password must contain at least one digit'
-    }
-    if (!/(?=.*[!@#$%^&*])/.test(value)) {
-      return 'Password must contain at least one special character'
-    }
-    return true
-  }
 
   const onSubmit = async (data) => {
     try {
@@ -105,11 +88,16 @@ function SignupUserInfoView() {
         name="password"
         type="password"
         control={control}
-        rules={{ validate: validatePassword }}
+        rules={{ validate: passwordValidation }}
       />
       <BaseCheckBox name="acceptTerms" control={control}>
-        I agree to the medidoc <mark className="signup-form__text-mark">Terms of Service</mark> and{' '}
-        <mark className="signup-form__text-mark">Privacy Policy</mark>
+        <p className='signup-form__terms'>
+          {' '}
+          I agree to the medidoc <mark className="signup-form__text-mark">
+            Terms of Service
+          </mark>{' '}
+          and <mark className="signup-form__text-mark">Privacy Policy</mark>
+        </p>
       </BaseCheckBox>
       <div className="signup-form__submit-wrapper">
         <BaseButton type="submit" isLoading={isLoading} disabled={!watch('acceptTerms')}>
