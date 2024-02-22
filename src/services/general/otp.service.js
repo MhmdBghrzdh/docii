@@ -4,7 +4,7 @@ import { axiosInstance } from '@/plugins/axios'
 const generateUrl = (path) => baseUrl + path
 
 export const requestOtp = (data) => {
-  const url = generateUrl('otp/send')
+  const url = generateUrl('otp/fakeSend')
 
   return axiosInstance.post(url, data)
 }

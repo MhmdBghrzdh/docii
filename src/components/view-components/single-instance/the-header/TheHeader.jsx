@@ -1,13 +1,20 @@
 import './index.scss'
+
+import { useNavigate } from 'react-router-dom'
+
 import PropTypes from 'prop-types'
 
 import BaseIcon from '@/components/base/base-icon/BaseIcon'
 
 function TheHeader({ title, prependIcon, appendIcon }) {
+  const navigate = useNavigate()
+  const pushToPreviousRoute = () => {
+    navigate(-1)
+  }
   return (
     <header className="header">
       {prependIcon && (
-        <div className="header__icon">
+        <div className="header__icon" onClick={pushToPreviousRoute}>
           <BaseIcon name={prependIcon} />
         </div>
       )}
