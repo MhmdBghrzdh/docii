@@ -55,10 +55,11 @@ function SignupUserInfoView() {
         firstName: data.firstName,
         lastName: data.lastName,
         password: data.password,
-        phoneNumber: profileStore.phoneNumber
+        phoneNumber: profileStore.phoneNumbe
       })
       dispatch(setProfile(data))
-      const response = await dispatch(signup(payloadSignup))
+      const signupHeaders = { token: profileStore.token }
+      const response = await dispatch(signup({ data: payloadSignup, headers: signupHeaders }))
       if (response?.error) throw new Error(response)
       navigate('/')
     } catch (error) {
