@@ -5,10 +5,22 @@
   position: relative;
   &__title {
     text-align: center;
+    color: var(--color-text-primary-700);
   }
   &__icon {
+    cursor: pointer;
+
     position: absolute;
     left: space(10);
     top: space(9);
+    > div > div {
+      @include flex($align: center);
+      width: space(6);
+      height: space(6);
+      svg,
+      path {
+        color: var(--color-text-primary-700);
+      }
+    }
   }
 }

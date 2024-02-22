@@ -7,6 +7,7 @@
     @include typography(title-large);
     border-radius: $border-radius-xs;
     background-color: var(--color-background-secondary);
+    color: var(--color-text-primary-700);
     border: solid 1.25px var(--border-color);
     text-align: center;
     width: 50px;
