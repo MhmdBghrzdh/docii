@@ -3,8 +3,11 @@ import { axiosInstance } from '@/plugins/axios'
 
 const generateUrl = (path) => baseUrl + path
 
-export const signup = (data) => {
+export const signup = (data, headers) => {
+  const config = {
+    headers
+  }
   const url = generateUrl('user/register')
 
-  return axiosInstance.post(url, data)
+  return axiosInstance.post(url, data, config)
 }

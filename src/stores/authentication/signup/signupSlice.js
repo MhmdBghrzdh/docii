@@ -15,9 +15,8 @@ const signupSlice = createSlice({
 
 // export const {} = signupSlice.actions
 
-export const signup = createAsyncThunk(
-  'signup/signup',
-  async (payload) => await authenticationServices.signup(payload)
-)
+export const signup = createAsyncThunk('signup/signup', async (payload) => {
+  await authenticationServices.signup(payload.data, payload.headers)
+})
 
 export default signupSlice.reducer

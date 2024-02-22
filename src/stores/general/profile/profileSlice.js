@@ -18,10 +18,14 @@ const profileSlice = createSlice({
     setPhoneNumber: (state, action) => {
       state.phoneNumber = action.payload
       localStorage.setItem('profile', JSON.stringify(state))
+    },
+    setToken: (state, action) => {
+      state.token = action.payload
+      localStorage.setItem('profile', JSON.stringify(state))
     }
   }
 })
 
-export const { setProfile, setPhoneNumber } = profileSlice.actions
+export const { setProfile, setPhoneNumber, setToken } = profileSlice.actions
 
 export default profileSlice.reducer

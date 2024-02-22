@@ -8,6 +8,7 @@ import BaseButton from '@/components/base/base-button/BaseButton'
 import OtpInput from '@/components/general/otp/OtpInput'
 
 import { verifyOtp } from '@/stores/general/otp/otpSlice'
+import { setToken } from '@/stores/general/profile/profileSlice'
 
 import { verifyOtpMapper } from '@/mappers/authentication'
 import { useNavigate } from 'react-router-dom'
@@ -27,6 +28,7 @@ function SignupOtpView() {
     try {
       const payload = verifyOtpMapper(data.otp, profileStore.phoneNumber)
       const response = await dispatch(verifyOtp(payload))
+      dispatch(setToken(response?.payload?.token))
       if (response?.error) throw new Error(response)
       navigate('/signup/user-info')
     } catch (error) {
