@@ -18,7 +18,7 @@ import { passwordValidation } from '@/plugins/react-hook-form/validations'
 
 function LoginView() {
   const defaultValues = {
-    nationalCode: '',
+    phoneNumber: '',
     password: ''
   }
   const { control, handleSubmit } = useForm({ defaultValues })
@@ -46,12 +46,17 @@ function LoginView() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="login-form">
       <BaseTextInput
-        placeholder="Enter your national code / phone number"
-        prependIcon="UserOutline"
-        name="nationalCode"
+        placeholder="Enter your phone number"
+        prependIcon="Phone"
+        name="phoneNumber"
+        type="tel"
         control={control}
         rules={{
-          required: 'national code / phone number is required'
+          required: 'phone number is required',
+          pattern: {
+            value: /^[0-9]{11}$/,
+            message: 'phone number must be 11 digits'
+          }
         }}
       />
       <BaseTextInput

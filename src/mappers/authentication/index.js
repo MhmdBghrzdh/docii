@@ -10,4 +10,4 @@ export const signupMapper = ({ nationalCode, firstName, lastName, password, phon
   mobileNumber: phoneNumber
 })
 
-export const loginMapper = ({ nationalCode, password }) => ({ password, nationalId: nationalCode })
+export const loginMapper = ({ phoneNumber, password }) => ({ password, mobileNumber: phoneNumber })

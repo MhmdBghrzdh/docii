@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import Cookies from 'js-cookie'
+
 import BaseTextInput from '@/components/base/base-text-input/BaseTextInput'
 import BaseButton from '@/components/base/base-button/BaseButton'
 import BaseCheckBox from '@/components/base/base-check-box/BaseCheckBox'
@@ -40,10 +42,11 @@ function SignupUserInfoView() {
         password: data.password,
         phoneNumber: profileStore.phoneNumber
       })
-      dispatch(setProfile(data))
       const signupHeaders = { token: profileStore.token }
       const response = await dispatch(signup({ data: payloadSignup, headers: signupHeaders }))
       if (response?.error) throw new Error(response)
+      dispatch(setProfile(data))
+      Cookies.set('token', response?.payload.token)
       navigate('/')
     } catch (error) {
       console.log(error)
@@ -91,7 +94,7 @@ function SignupUserInfoView() {
         rules={{ validate: passwordValidation }}
       />
       <BaseCheckBox name="acceptTerms" control={control}>
-        <p className='signup-form__terms'>
+        <p className="signup-form__terms">
           {' '}
           I agree to the medidoc <mark className="signup-form__text-mark">
             Terms of Service

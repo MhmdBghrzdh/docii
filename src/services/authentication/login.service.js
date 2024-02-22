@@ -8,3 +8,13 @@ export const login = (data) => {
 
   return axiosInstance.post(url, data)
 }
+
+export const logout = (headers) => {
+  const url = generateUrl('user/logout')
+
+  const config = {
+    headers
+  }
+  console.log(headers)
+  return axiosInstance.post(url, {}, config)
+}

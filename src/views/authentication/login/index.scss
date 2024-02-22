@@ -1,6 +1,6 @@
 .login-form {
   @include flex(column, $align: end);
-  gap: space(6);
+  gap: space(10);
   height: 100%;
 
   &__messages {

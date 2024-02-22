@@ -19,4 +19,9 @@ export const login = createAsyncThunk(
   async (payload) => await authenticationServices.login(payload)
 )
 
+export const logout = createAsyncThunk(
+  'login/logout',
+  async (headers) => await authenticationServices.logout(headers)
+)
+
 export default loginSlice.reducer
