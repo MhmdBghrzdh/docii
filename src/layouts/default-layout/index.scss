@@ -2,7 +2,10 @@
   @include flex(column);
   min-height: 100vh;
   height: 100vh;
+  max-width: 450px;
   width: 100%;
+  background-color: var(--color-background-primary);
+
   &__main {
     padding: space(5);
     height: 100%;
