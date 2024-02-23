@@ -12,19 +12,21 @@ function TheHeader({ title, prependIcon, appendIcon }) {
     navigate(-1)
   }
   return (
-    <header className="header">
-      {prependIcon && (
-        <div className="header__icon" onClick={pushToPreviousRoute}>
-          <BaseIcon name={prependIcon} />
-        </div>
-      )}
-      {title && <h1 className="header__title">{title}</h1>}
-      {appendIcon && (
-        <div className="header__icon">
-          <BaseIcon name={appendIcon} />
-        </div>
-      )}
-    </header>
+    title && (
+      <header className="header">
+        {prependIcon && (
+          <div className="header__icon" onClick={pushToPreviousRoute}>
+            <BaseIcon name={prependIcon} />
+          </div>
+        )}
+        <h1 className="header__title">{title}</h1>
+        {appendIcon && (
+          <div className="header__icon">
+            <BaseIcon name={appendIcon} />
+          </div>
+        )}
+      </header>
+    )
   )
 }
 
