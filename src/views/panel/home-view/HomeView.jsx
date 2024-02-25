@@ -9,7 +9,11 @@ import DoctorCard from '@/components/view-components/panel/home/doctor-card/Doct
 
 import { HOME_CATEGORIES } from '@/constants/common/panel/home/views/home-categories'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { getCategories, setCategories } from '@/stores/general/category/categorySlice'
+import { getFile } from '@/stores/general/file/fileSlice'
 
 function HomeView() {
   const testDoctorList = [
@@ -56,6 +60,32 @@ function HomeView() {
       score: 4.7
     }
   ]
+
+  const dispatch = useDispatch()
+  const categoryStore = useSelector((state) => state.category)
+
+  useEffect(() => {
+    async function fetchHomePageData() {
+      const response = await dispatch(getCategories())
+      dispatch(setCategories(response?.payload?.result))
+    }
+
+    fetchHomePageData()
+  }, [dispatch])
+
+  useEffect(() => {
+    async function fetchHomePageData() {
+      console.log(categoryStore)
+      if (categoryStore?.categories) {
+        for (const category of categoryStore.categories) {
+          await dispatch(getFile(category.link))
+        }
+      }
+    }
+
+    fetchHomePageData()
+  }, [categoryStore])
+
   return (
     <div className="home-view">
       <div className="home-view__header">
@@ -68,8 +98,8 @@ function HomeView() {
       </div>
       <SearchBar placeholder="Search doctor, drugs, articles..." />
       <section className="home-view__categories">
-        {HOME_CATEGORIES.map((category, index) => (
-          <Category icon={category.icon} title={category.title} key={index} />
+        {HOME_CATEGORIES.map((category) => (
+          <Category icon={category.icon} title={category.title} key={category.id} />
         ))}
       </section>
       <section className="home-view__ads">
