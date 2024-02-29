@@ -9,6 +9,9 @@ import SignupRoot from '@/views/authentication/signup/signup-root/SignupRoot'
 import LoginView from '@/views/authentication/login/LoginView'
 import ForgotPasswordView from '@/views/authentication/forgot-password/ForgotPasswordView'
 import HomeView from '@/views/panel/home-view/HomeView'
+import MessagesView from '@/views/panel/messages/MessagesView'
+import ProfileView from '@/views/panel/profile/ProfileView'
+import ScheduleView from '@/views/panel/schedules/ScheduleView'
 
 const router = createBrowserRouter([
   {
@@ -44,6 +47,18 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <HomeView />
+      },
+      {
+        path: '/messages',
+        element: <MessagesView />
+      },
+      {
+        path: '/schedule',
+        element: <ScheduleView />
+      },
+      {
+        path: '/profile',
+        element: <ProfileView />
       }
     ]
   }
