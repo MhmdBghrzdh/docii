@@ -3,18 +3,24 @@ import './index.scss'
 import PropTypes from 'prop-types'
 // import BaseIcon from '@/components/base/base-icon/BaseIcon'
 
-function Category({ title }) {
+function Category({ title, image, isLoading }) {
+  const imageSource = image ? `data:image/png;base64,${image}` : null
   return (
-    <div className="category">
-      <div className="category__icon-wrapper">{/* <img src={icon} alt="" /> */}</div>
-      <h3 className="category__title">{title}</h3>
-    </div>
+    !isLoading && (
+      <div className="category">
+        <div className="category__icon-wrapper">
+          <img src={imageSource} alt={title} />
+        </div>
+        <h3 className="category__title">{title}</h3>
+      </div>
+    )
   )
 }
 
 Category.propTypes = {
-  // icon: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired
+  image: PropTypes.string,
+  title: PropTypes.string,
+  isLoading: PropTypes.bool
 }
 
 export default Category
