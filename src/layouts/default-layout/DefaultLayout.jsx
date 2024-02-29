@@ -7,10 +7,12 @@ import TheHeader from '@/components/view-components/single-instance/the-header/T
 import TheNavBar from '@/components/view-components/single-instance/the-navbar/TheNavBar'
 
 import useRouteTitle from '@/hooks/useRouteTitle'
+import useNavbar from '@/hooks/useNavbar'
 
 function DefaultLayout() {
   const location = useLocation()
   const title = useRouteTitle(location.pathname)
+  const hasNavbar = useNavbar(location.pathname)
 
   return (
     <div className="default-layout">
@@ -18,7 +20,7 @@ function DefaultLayout() {
       <main className="default-layout__main">
         <Outlet />
       </main>
-      <TheNavBar />
+      {hasNavbar && <TheNavBar />}
       <ToastContainer
         position="top-center"
         autoClose={5000}
