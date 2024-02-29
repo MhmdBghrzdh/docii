@@ -5,6 +5,7 @@
 
   &__messages {
     @include flex($justify: space-between);
+    @include typography(body-medium);
     width: 100%;
   }
 

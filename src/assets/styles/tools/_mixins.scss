@@ -20,8 +20,8 @@
 
 @mixin customScrollBar(
   $width: 3px,
-  $scrollDefaultColor: var(--color-neutral-500),
-  $scrollHoverColor: var(--color-neutral-600)
+  $scrollDefaultColor: var(--color-palette-primary-500),
+  $scrollHoverColor: var(--color-palette-primary-600)
 ) {
   &::-webkit-scrollbar {
     width: $width;
@@ -37,6 +37,13 @@
 
   &::-webkit-scrollbar-thumb:hover {
     background: $scrollHoverColor;
+  }
+}
+@mixin hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 

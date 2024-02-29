@@ -15,6 +15,5 @@ export const logout = (headers) => {
   const config = {
     headers
   }
-  console.log(headers)
   return axiosInstance.post(url, {}, config)
 }
