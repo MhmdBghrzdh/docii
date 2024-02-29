@@ -16,9 +16,9 @@ export const uploadFile = createAsyncThunk(
   async (payload) => await generalServices.uploadFile(payload)
 )
 
-export const getFile = createAsyncThunk('file/getFile', async (payload) => {
-  console.log(payload)
-  return await generalServices.getFile(payload)
-})
+export const getFile = createAsyncThunk(
+  'file/getFile',
+  async (payload) => await generalServices.getFile(payload)
+)
 
 export default fileSlice.reducer

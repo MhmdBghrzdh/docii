@@ -13,7 +13,7 @@ const categorySlice = createSlice({
       state.categories = action.payload
     },
     setImageInCategory: (state, action) => {
-      state.categories[action.payload.index] = action.payload
+      state.categories[action.payload.index].image = action.payload.image
     }
   }
 })

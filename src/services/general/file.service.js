@@ -10,7 +10,6 @@ export const uploadFile = (data) => {
 }
 
 export const getFile = (data) => {
-  console.log(data)
   const url = generateUrl('file/' + data)
   return axiosInstance.get(url)
 }
