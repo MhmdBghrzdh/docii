@@ -7,12 +7,14 @@ import SearchBar from '@/components/general/search-bar/SearchBar'
 import Category from '@/components/view-components/panel/category/Category'
 import DoctorCard from '@/components/view-components/panel/home/doctor-card/DoctorCard'
 
-import { HOME_CATEGORIES } from '@/constants/common/panel/home/views/home-categories'
-
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getCategories, setCategories } from '@/stores/general/category/categorySlice'
+import {
+  getCategories,
+  setCategories,
+  setImageInCategory
+} from '@/stores/general/category/categorySlice'
 import { getFile } from '@/stores/general/file/fileSlice'
 
 function HomeView() {
@@ -60,77 +62,94 @@ function HomeView() {
       score: 4.7
     }
   ]
+  const categoryStore = useSelector((state) => state.category.categories)
+  const [isLoading, setIsLoading] = useState(false)
+  const effectRan = useRef(true)
 
   const dispatch = useDispatch()
-  const categoryStore = useSelector((state) => state.category)
 
   useEffect(() => {
-    async function fetchHomePageData() {
-      const response = await dispatch(getCategories())
-      dispatch(setCategories(response?.payload?.result))
-    }
+    if (effectRan.current) {
+      const fetchHomePageData = async () => {
+        try {
+          setIsLoading(true)
+          const response = await dispatch(getCategories())
 
-    fetchHomePageData()
-  }, [dispatch])
+          const categories = response?.payload?.result
 
-  useEffect(() => {
-    async function fetchHomePageData() {
-      console.log(categoryStore)
-      if (categoryStore?.categories) {
-        for (const category of categoryStore.categories) {
-          await dispatch(getFile(category.link))
+          dispatch(setCategories(categories))
+
+          for (let index = 0; index < categories.length; index++) {
+            const response = await dispatch(getFile(categories[index].link))
+            const image = response?.payload?.result
+            dispatch(setImageInCategory({ image, index }))
+          }
+        } catch (error) {
+          console.log(error)
+        } finally {
+          setIsLoading(false)
         }
       }
-    }
+      fetchHomePageData()
 
-    fetchHomePageData()
-  }, [categoryStore])
+      return () => {
+        effectRan.current = false
+      }
+    }
+  }, [])
 
   return (
-    <div className="home-view">
-      <div className="home-view__header">
-        <span className="home-view__header-text">
-          Find your desire <br /> health solution
-        </span>
-        <div className="home-view__header-icon">
-          <BaseIcon name="Notification" />
+    !isLoading && (
+      <div className="home-view">
+        <div className="home-view__header">
+          <span className="home-view__header-text">
+            Find your desire <br /> health solution
+          </span>
+          <div className="home-view__header-icon">
+            <BaseIcon name="Notification" />
+          </div>
         </div>
-      </div>
-      <SearchBar placeholder="Search doctor, drugs, articles..." />
-      <section className="home-view__categories">
-        {HOME_CATEGORIES.map((category) => (
-          <Category icon={category.icon} title={category.title} key={category.id} />
-        ))}
-      </section>
-      <section className="home-view__ads">
-        <div className="home-view__ads-content">
-          <h2 className="home-view__ads-text">
-            Early protection for <br /> your family health
-          </h2>
-          <BaseButton isBlock={false}>Learn more </BaseButton>
-        </div>
-        <img src="src\assets\images\doctor-ads-woman.png" alt="doctor" />
-      </section>
-      <section className="home-view__top-doctor-container">
-        <div className="home-view__top-doctor-header">
-          <h3 className="home-view__top-doctor-title">Top Doctor</h3>
-          <Link className="home-view__top-doctor-all" to={'/top-doctors'}>
-            See all
-          </Link>
-        </div>
-        <div className="home-view__top-doctor-list">
-          {testDoctorList.map((doctor, index) => (
-            <DoctorCard
-              name={doctor.name}
-              image={doctor.image}
-              category={doctor.category}
-              score={doctor.score}
-              key={index}
+        <SearchBar placeholder="Search doctor, drugs, articles..." />
+        <section className="home-view__categories">
+          {categoryStore.map((category) => (
+            <Category
+              title={category.name}
+              key={category._id}
+              image={category.image}
+              isLoading={isLoading}
             />
           ))}
-        </div>
-      </section>
-    </div>
+        </section>
+        <section className="home-view__ads">
+          <div className="home-view__ads-content">
+            <h2 className="home-view__ads-text">
+              Early protection for <br /> your family health
+            </h2>
+            <BaseButton isBlock={false}>Learn more </BaseButton>
+          </div>
+          <img src="src\assets\images\doctor-ads-woman.png" alt="doctor" />
+        </section>
+        <section className="home-view__top-doctor-container">
+          <div className="home-view__top-doctor-header">
+            <h3 className="home-view__top-doctor-title">Top Doctor</h3>
+            <Link className="home-view__top-doctor-all" to={'/top-doctors'}>
+              See all
+            </Link>
+          </div>
+          <div className="home-view__top-doctor-list">
+            {testDoctorList.map((doctor, index) => (
+              <DoctorCard
+                name={doctor.name}
+                image={doctor.image}
+                category={doctor.category}
+                score={doctor.score}
+                key={index}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+    )
   )
 }
 
