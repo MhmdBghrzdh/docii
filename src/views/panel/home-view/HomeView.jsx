@@ -11,59 +11,17 @@ import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {
-  getCategories,
-  setCategories,
-  setImageInCategory
-} from '@/stores/general/category/categorySlice'
+  getTopScoreDoctors,
+  setTopScoreDoctors,
+  setImageInTopDoctors
+} from '@/stores/doctor/doctorSlice'
 import { getFile } from '@/stores/general/file/fileSlice'
 
+import { GENERAL_CATEGORIES } from '@/constants/common/panel/home/views/general-categories.constants'
+
 function HomeView() {
-  const testDoctorList = [
-    {
-      name: 'Dr. Marcus Horizon',
-      category: 'Chardiologist',
-      image: 'src/assets/images/doctor-test.png',
-      score: 4.7
-    },
-    {
-      name: 'Dr. Marcus Horizon',
-      category: 'Chardiologist',
-      image: 'src/assets/images/doctor-test.png',
-      score: 4.7
-    },
-    {
-      name: 'Dr. Marcus Horizon',
-      category: 'Chardiologist',
-      image: 'src/assets/images/doctor-test.png',
-      score: 4.7
-    },
-    {
-      name: 'Dr. Marcus Horizon',
-      category: 'Chardiologist',
-      image: 'src/assets/images/doctor-test.png',
-      score: 4.7
-    },
-    {
-      name: 'Dr. Marcus Horizon',
-      category: 'Chardiologist',
-      image: 'src/assets/images/doctor-test.png',
-      score: 4.7
-    },
-    {
-      name: 'Dr. Marcus Horizon',
-      category: 'Chardiologist',
-      image: 'src/assets/images/doctor-test.png',
-      score: 4.7
-    },
-    {
-      name: 'Dr. Marcus Horizon',
-      category: 'Chardiologist',
-      image: 'src/assets/images/doctor-test.png',
-      score: 4.7
-    }
-  ]
-  const categoryStore = useSelector((state) => state.category.categories)
   const [isLoading, setIsLoading] = useState(false)
+  const DoctorStore = useSelector((state) => state.doctor)
   const effectRan = useRef(true)
 
   const dispatch = useDispatch()
@@ -73,28 +31,27 @@ function HomeView() {
       const fetchHomePageData = async () => {
         try {
           setIsLoading(true)
-          if (!categoryStore.length) {
-            const response = await dispatch(getCategories())
-            if (response?.error) throw new Error(response)
-            const categories = response?.payload?.result
+          const response = await dispatch(getTopScoreDoctors())
+          if (response?.error) throw new Error()
 
-            dispatch(setCategories(categories))
+          const topDoctors = response?.payload?.result
 
-            let categoryList = []
+          dispatch(setTopScoreDoctors(topDoctors))
 
-            for (let index = 0; index < categories.length; index++) {
-              categoryList.push(getFiles(categories, index))
-            }
+          let topDoctorList = []
 
-            await Promise.all(categoryList)
+          for (let index = 0; index < topDoctors.length; index++) {
+            topDoctorList.push(getFiles(topDoctors, index))
           }
+
+          await Promise.all(topDoctorList)
         } catch (error) {
           console.log(error)
         } finally {
           setIsLoading(false)
         }
       }
-      fetchHomePageData()
+      if (!DoctorStore.topDoctors.length) fetchHomePageData()
 
       return () => {
         effectRan.current = false
@@ -102,11 +59,11 @@ function HomeView() {
     }
   }, [])
 
-  const getFiles = async (categories, index) => {
-    const response = await dispatch(getFile(categories[index].link))
+  const getFiles = async (topDoctors, index) => {
+    const response = await dispatch(getFile(topDoctors[index].link))
     if (response?.error) throw new Error(response)
     const image = response?.payload?.result
-    dispatch(setImageInCategory({ image, index }))
+    dispatch(setImageInTopDoctors({ image, index }))
   }
   return (
     !isLoading && (
@@ -121,13 +78,8 @@ function HomeView() {
         </div>
         <SearchBar placeholder="Search doctor, drugs, articles..." />
         <section className={style['home-view__categories']}>
-          {categoryStore.map((category) => (
-            <Category
-              title={category.name}
-              key={category._id}
-              image={category.image}
-              isLoading={isLoading}
-            />
+          {GENERAL_CATEGORIES.map((category) => (
+            <Category title={category.name} key={category.name} image={category.image} />
           ))}
         </section>
         <section className={style['home-view__ads']}>
@@ -147,13 +99,14 @@ function HomeView() {
             </Link>
           </div>
           <div className={style['home-view__top-doctor-list']}>
-            {testDoctorList.map((doctor, index) => (
+            {DoctorStore.topDoctors.map((doctor) => (
               <DoctorCard
-                name={doctor.name}
+                firstName={doctor.firstName}
+                lastName={doctor.lastName}
                 image={doctor.image}
-                category={doctor.category}
+                category={doctor.categories[0]}
                 score={doctor.score}
-                key={index}
+                key={doctor.id}
               />
             ))}
           </div>
