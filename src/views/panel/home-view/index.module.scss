@@ -1,6 +1,7 @@
 .home-view {
   @include flex(column);
   gap: space(8);
+  margin-bottom: 70px;
   &__header {
     @include flex($justify: space-between);
     width: 100%;
