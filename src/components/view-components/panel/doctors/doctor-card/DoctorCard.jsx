@@ -8,10 +8,12 @@ function DoctorCard({ name, image, category, score }) {
   return (
     <div className={styles['doctor-card']}>
       <img className={styles["doctor-card__image"]} src={image} alt={name} />
-      <h3 className={styles['doctor-card__name']}>{name}</h3>
-      <span className={styles['doctor-card__category']}>{category}</span>
-      <CheapScore score={score} />
-    </div>  
+      <div className={styles['doctor-card__details']}>
+        <h3 className={styles['doctor-card__name']}>{name}</h3>
+        <span className={styles['doctor-card__category']}>{category}</span>
+        <CheapScore score={score} />
+      </div>
+    </div>
   )
 }
 
