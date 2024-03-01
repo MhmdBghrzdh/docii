@@ -1,6 +1,7 @@
 import style from './index.module.scss'
 
 import PropTypes from 'prop-types'
+
 import BaseIcon from '@/components/base/base-icon/BaseIcon'
 
 function Category({ title, image }) {
