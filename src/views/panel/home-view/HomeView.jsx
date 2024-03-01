@@ -82,6 +82,7 @@ function HomeView() {
 
           for (let index = 0; index < categories.length; index++) {
             const response = await dispatch(getFile(categories[index].link))
+            if (response?.error) throw new Error(response)
             const image = response?.payload?.result
             dispatch(setImageInCategory({ image, index }))
           }

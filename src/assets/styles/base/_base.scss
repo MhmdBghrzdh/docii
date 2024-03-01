@@ -1,7 +1,7 @@
 @use '../abstracts' as *;
 @use '../tools/' as *;
 
-#root {
+root {
   margin: 0;
   font-family: $ff-primary $ff-secondary;
   -webkit-font-smoothing: antialiased;
