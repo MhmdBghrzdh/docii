@@ -9,7 +9,7 @@ import BaseTextInput from '@/components/base/base-text-input/BaseTextInput'
 import BaseButton from '@/components/base/base-button/BaseButton'
 
 import { requestOtp } from '@/stores/general/otp/otpSlice'
-import { setPhoneNumber } from '@/stores/general/profile/profileSlice'
+import { setPhoneNumber } from '@/stores/profile/profileSlice'
 
 import { requestOtpMapper } from '@/mappers/authentication'
 

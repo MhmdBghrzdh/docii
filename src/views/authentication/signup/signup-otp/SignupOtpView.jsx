@@ -8,7 +8,7 @@ import BaseButton from '@/components/base/base-button/BaseButton'
 import OtpInput from '@/components/general/otp/OtpInput'
 
 import { verifyOtp } from '@/stores/general/otp/otpSlice'
-import { setToken } from '@/stores/general/profile/profileSlice'
+import { setToken } from '@/stores/profile/profileSlice'
 
 import { verifyOtpMapper } from '@/mappers/authentication'
 import { useNavigate } from 'react-router-dom'

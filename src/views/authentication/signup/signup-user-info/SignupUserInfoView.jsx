@@ -11,7 +11,7 @@ import BaseTextInput from '@/components/base/base-text-input/BaseTextInput'
 import BaseButton from '@/components/base/base-button/BaseButton'
 import BaseCheckBox from '@/components/base/base-check-box/BaseCheckBox'
 
-import { setProfile } from '@/stores/general/profile/profileSlice'
+import { setProfile } from '@/stores/profile/profileSlice'
 import { signup } from '@/stores/authentication/signup/signupSlice'
 
 import { signupMapper } from '@/mappers/authentication'
@@ -96,10 +96,9 @@ function SignupUserInfoView() {
       <BaseCheckBox name="acceptTerms" control={control}>
         <p className={style['signup-form__terms']}>
           {' '}
-          I agree to the medidoc <mark className={style['signup-form__text-mark']}>
-            Terms of Service
-          </mark>{' '}
-          and <mark className={style['signup-form__text-mark']}>Privacy Policy</mark>
+          I agree to the medidoc{' '}
+          <mark className={style['signup-form__text-mark']}>Terms of Service</mark> and{' '}
+          <mark className={style['signup-form__text-mark']}>Privacy Policy</mark>
         </p>
       </BaseCheckBox>
       <div className={style['signup-form__submit-wrapper']}>
