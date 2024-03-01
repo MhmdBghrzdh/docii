@@ -1,4 +1,4 @@
-import './index.scss'
+import style from './index.module.scss'
 import { Link } from 'react-router-dom'
 
 import BaseButton from '@/components/base/base-button/BaseButton'
@@ -69,12 +69,13 @@ function HomeView() {
   const dispatch = useDispatch()
 
   useEffect(() => {
+
     if (effectRan.current) {
       const fetchHomePageData = async () => {
         try {
           setIsLoading(true)
           const response = await dispatch(getCategories())
-
+          if (response?.error) throw new Error(response)
           const categories = response?.payload?.result
 
           dispatch(setCategories(categories))
@@ -100,17 +101,17 @@ function HomeView() {
 
   return (
     !isLoading && (
-      <div className="home-view">
-        <div className="home-view__header">
-          <span className="home-view__header-text">
+      <div className={style['home-view']}>
+        <div className={style['home-view__header']}>
+          <span className={style['home-view__header-text']}>
             Find your desire <br /> health solution
           </span>
-          <div className="home-view__header-icon">
+          <div className={style['home-view__header-icon']}>
             <BaseIcon name="Notification" />
           </div>
         </div>
         <SearchBar placeholder="Search doctor, drugs, articles..." />
-        <section className="home-view__categories">
+        <section className={style['home-view__categories']}>
           {categoryStore.map((category) => (
             <Category
               title={category.name}
@@ -120,23 +121,23 @@ function HomeView() {
             />
           ))}
         </section>
-        <section className="home-view__ads">
-          <div className="home-view__ads-content">
-            <h2 className="home-view__ads-text">
+        <section className={style['home-view__ads']}>
+          <div className={style['home-view__ads-content']}>
+            <h2 className={style['home-view__ads-text']}>
               Early protection for <br /> your family health
             </h2>
             <BaseButton isBlock={false}>Learn more </BaseButton>
           </div>
           <img src="src\assets\images\doctor-ads-woman.png" alt="doctor" />
         </section>
-        <section className="home-view__top-doctor-container">
-          <div className="home-view__top-doctor-header">
-            <h3 className="home-view__top-doctor-title">Top Doctor</h3>
-            <Link className="home-view__top-doctor-all" to={'/top-doctors'}>
+        <section className={style['home-view__top-doctor-container']}>
+          <div className={style['home-view__top-doctor-header']}>
+            <h3 className={style['home-view__top-doctor-title']}>Top Doctor</h3>
+            <Link className={style['home-view__top-doctor-all']} to={'/top-doctors'}>
               See all
             </Link>
           </div>
-          <div className="home-view__top-doctor-list">
+          <div className={style['home-view__top-doctor-list']}>
             {testDoctorList.map((doctor, index) => (
               <DoctorCard
                 name={doctor.name}

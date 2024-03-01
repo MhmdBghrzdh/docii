@@ -1,7 +1,5 @@
 import style from './index.module.scss'
 
-import { useState } from 'react'
-
 import DoctorCard from '@/components/view-components/panel/doctors/doctor-card/DoctorCard'
 
 function TopDoctorsView() {

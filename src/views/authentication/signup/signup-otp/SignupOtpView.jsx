@@ -1,4 +1,4 @@
-import './index.scss'
+import style from './index.module.scss'
 
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
@@ -39,7 +39,7 @@ function SignupOtpView() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="signup-otp">
+    <form onSubmit={handleSubmit(onSubmit)} className={style['signup-otp']}>
       <OtpInput
         name="otp"
         numberOfInputs={5}
@@ -50,7 +50,7 @@ function SignupOtpView() {
         }}
         setIsOtpCompleted={setIsOtpCompleted}
       />
-      <div className="signup-otp__submit-wrapper">
+      <div className={style['signup-otp__submit-wrapper']}>
         <BaseButton type="submit" isLoading={isLoading} disabled={isOtpCompleted}>
           Verify
         </BaseButton>

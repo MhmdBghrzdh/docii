@@ -1,4 +1,4 @@
-import './index.scss'
+import style from './index.module.scss'
 
 import Cookies from 'js-cookie'
 
@@ -32,7 +32,6 @@ function LoginView() {
       setIsLoading(true)
       const payloadLogin = loginMapper(data)
       const response = await dispatch(login(payloadLogin))
-      console.log(response)
       if (response?.error) throw new Error(response)
       Cookies.set('token', response?.payload?.token)
       navigate('/')
@@ -44,7 +43,7 @@ function LoginView() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="login-form">
+    <form onSubmit={handleSubmit(onSubmit)} className={style['login-form']}>
       <BaseTextInput
         placeholder="Enter your phone number"
         prependIcon="Phone"
@@ -68,19 +67,19 @@ function LoginView() {
         control={control}
         rules={{ validate: passwordValidation }}
       />
-      <div className="login-form__messages">
-        <span className="login-form__signup-message">
+      <div className={style['login-form__messages']}>
+        <span className={style['login-form__signup-message']}>
           dont have an account?{' '}
-          <Link className="login-form__signup" to={'/signup'}>
+          <Link className={style['login-form__signup']} to={'/signup'}>
             Sign Up
           </Link>
         </span>
-        <Link to={'/forgot-password'} className="login-form__forgot-password">
+        <Link to={'/forgot-password'} className={style['login-form__forgot-password']}>
           Forgot Password?
         </Link>
       </div>
 
-      <div className="login-form__submit-wrapper">
+      <div className={style['login-form__submit-wrapper']}>
         <BaseButton type="submit" isLoading={isLoading}>
           Login
         </BaseButton>
