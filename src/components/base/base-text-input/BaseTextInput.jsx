@@ -1,4 +1,4 @@
-import style from'./index.module.scss'
+import style from './index.module.scss'
 
 import PropTypes from 'prop-types'
 
@@ -32,13 +32,20 @@ const BaseTextInput = ({
           <BaseIcon name={prependIcon} />
         </div>
       )}
-      <input {...field} {...props} placeholder={placeholder} className={style['base-input__input']} />
+      <input
+        {...field}
+        {...props}
+        placeholder={placeholder}
+        className={style['base-input__input']}
+      />
       {appendIcon && (
-        <div className="base-input__icon">
+        <div className={style['base-input__icon']}>
           <BaseIcon name={appendIcon} />
         </div>
       )}
-      {errors[name] && <span className={style['base-input__error-message']}>{errors[name].message}</span>}
+      {errors[name] && (
+        <span className={style['base-input__error-message']}>{errors[name].message}</span>
+      )}
     </div>
   )
 }
