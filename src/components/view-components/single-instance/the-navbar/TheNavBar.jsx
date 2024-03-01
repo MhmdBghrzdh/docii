@@ -1,4 +1,4 @@
-import './index.scss'
+import style from './index.module.scss'
 
 import BaseIcon from '@/components/base/base-icon/BaseIcon'
 
@@ -7,16 +7,16 @@ import { NavLink } from 'react-router-dom'
 
 function TheNavBar() {
   return (
-    <nav className="nav">
+    <nav className={style['nav']}>
       {NAV_LIST.map((item, index) => {
-        return (
+        return ( 
           <NavLink
             className={({ isActive, isPending, isTransitioning }) =>
               [
                 isPending ? 'pending' : '',
-                isActive ? 'active' : '',
+                isActive ? style['active'] : '',
                 isTransitioning ? 'transitioning' : '',
-                'nav__item'
+                style['nav__item']
               ].join(' ')
             }
             key={index}
