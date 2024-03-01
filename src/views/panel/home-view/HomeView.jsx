@@ -69,22 +69,24 @@ function HomeView() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-
     if (effectRan.current) {
       const fetchHomePageData = async () => {
         try {
           setIsLoading(true)
-          const response = await dispatch(getCategories())
-          if (response?.error) throw new Error(response)
-          const categories = response?.payload?.result
-
-          dispatch(setCategories(categories))
-
-          for (let index = 0; index < categories.length; index++) {
-            const response = await dispatch(getFile(categories[index].link))
+          if (!categoryStore.length) {
+            const response = await dispatch(getCategories())
             if (response?.error) throw new Error(response)
-            const image = response?.payload?.result
-            dispatch(setImageInCategory({ image, index }))
+            const categories = response?.payload?.result
+
+            dispatch(setCategories(categories))
+
+            let categoryList = []
+
+            for (let index = 0; index < categories.length; index++) {
+              categoryList.push(getFiles(categories, index))
+            }
+
+            await Promise.all(categoryList)
           }
         } catch (error) {
           console.log(error)
@@ -100,6 +102,12 @@ function HomeView() {
     }
   }, [])
 
+  const getFiles = async (categories, index) => {
+    const response = await dispatch(getFile(categories[index].link))
+    if (response?.error) throw new Error(response)
+    const image = response?.payload?.result
+    dispatch(setImageInCategory({ image, index }))
+  }
   return (
     !isLoading && (
       <div className={style['home-view']}>
