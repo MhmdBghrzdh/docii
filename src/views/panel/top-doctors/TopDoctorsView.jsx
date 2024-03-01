@@ -1,35 +1,68 @@
-import BaseButton from '@/components/base/base-button/BaseButton'
+import style from './index.module.scss'
 
-import Cookies from 'js-cookie'
-
-import { useDispatch } from 'react-redux'
-
-import { logout } from '@/stores/authentication/login/LoginSlice'
 import { useState } from 'react'
 
-function HomeView() {
-  const [isLoading, setIsLoading] = useState(false)
-  const dispatch = useDispatch()
-  const logOut = async () => {
-    try {
-      setIsLoading(true)
-      const token = Cookies.get('token')
-      const logoutHeaders = { token }
-      await dispatch(logout(logoutHeaders))
-      Cookies.remove('token')
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setIsLoading(false)
+import DoctorCard from '@/components/view-components/panel/doctors/doctor-card/DoctorCard'
+
+function TopDoctorsView() {
+  const testDoctorList = [
+    {
+      name: 'Dr. Marcus Horizon',
+      category: 'Chardiologist',
+      image: 'src/assets/images/doctor-test.png',
+      score: 4.7
+    },
+    {
+      name: 'Dr. Marcus Horizon',
+      category: 'Chardiologist',
+      image: 'src/assets/images/doctor-test.png',
+      score: 4.7
+    },
+    {
+      name: 'Dr. Marcus Horizon',
+      category: 'Chardiologist',
+      image: 'src/assets/images/doctor-test.png',
+      score: 4.7
+    },
+    {
+      name: 'Dr. Marcus Horizon',
+      category: 'Chardiologist',
+      image: 'src/assets/images/doctor-test.png',
+      score: 4.7
+    },
+    {
+      name: 'Dr. Marcus Horizon',
+      category: 'Chardiologist',
+      image: 'src/assets/images/doctor-test.png',
+      score: 4.7
+    },
+    {
+      name: 'Dr. Marcus Horizon',
+      category: 'Chardiologist',
+      image: 'src/assets/images/doctor-test.png',
+      score: 4.7
+    },
+    {
+      name: 'Dr. Marcus Horizon',
+      category: 'Chardiologist',
+      image: 'src/assets/images/doctor-test.png',
+      score: 4.7
     }
-  }
+  ]
+
   return (
-    <div onClick={logOut}>
-      <BaseButton isLoading={isLoading} >
-        Logout
-      </BaseButton>
+    <div className={style['top-doctors']}>
+      {testDoctorList.map((doctor, index) => (
+        <DoctorCard
+          name={doctor.name}
+          image={doctor.image}
+          category={doctor.category}
+          score={doctor.score}
+          key={index}
+        />
+      ))}
     </div>
   )
 }
 
-export default HomeView
+export default TopDoctorsView
