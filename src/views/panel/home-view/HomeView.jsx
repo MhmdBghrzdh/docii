@@ -41,7 +41,7 @@ function HomeView() {
           let topDoctorList = []
 
           for (let index = 0; index < topDoctors.length; index++) {
-            topDoctorList.push(getFiles(topDoctors, index))
+            if (topDoctors[index].link) topDoctorList.push(getFiles(topDoctors, index))
           }
 
           await Promise.all(topDoctorList)
@@ -94,7 +94,7 @@ function HomeView() {
         <section className={style['home-view__top-doctor-container']}>
           <div className={style['home-view__top-doctor-header']}>
             <h3 className={style['home-view__top-doctor-title']}>Top Doctor</h3>
-            <Link className={style['home-view__top-doctor-all']} to={'/top-doctors'}>
+            <Link className={style['home-view__top-doctor-all']} to={'/doctor/top-doctors'}>
               See all
             </Link>
           </div>
