@@ -1,6 +1,7 @@
 .doctor-card {
   @include flex();
   gap: space(2);
+  cursor: pointer;
   padding: space(4);
   width: 100%;
   border: solid 1px var(--color-background-tertiary);
@@ -20,8 +21,11 @@
     color: var(--color-text-primary-700);
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: 230px;
+    max-width: 185px;
     overflow: hidden;
+    @include breakpoint(x-small) {
+      max-width: 230px;
+    }
   }
   &__category {
     @include typography(body-medium);
