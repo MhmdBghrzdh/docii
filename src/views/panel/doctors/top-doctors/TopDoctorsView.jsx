@@ -71,6 +71,7 @@ function TopDoctorsView() {
             image={doctor.image}
             category={doctor.categories[0]}
             score={doctor.score}
+            id={doctor.id}
             key={doctor.id}
           />
         ))}
