@@ -62,7 +62,7 @@ const router = createBrowserRouter([
         element: <ProfileView />
       },
       {
-        path: '/doctor/top-doctors',
+        path: '/top-doctors',
         element: <TopDoctorsView />
       },
       {
