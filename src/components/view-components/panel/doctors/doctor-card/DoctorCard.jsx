@@ -1,30 +1,24 @@
 import styles from './index.module.scss'
 
 import PropTypes from 'prop-types'
-import { useNavigate } from 'react-router-dom'
 
 import CheapScore from '@/components/general/cheap-score/CheapScore'
-import BaseIcon from '@/components/base/base-icon/BaseIcon'
 
-function DoctorCard({ firstName, lastName, image, category, score, id }) {
-  const imageSource = image
-    ? `data:image/png;base64,${image}`
-    : 'src/assets/images/doctorDefaultPerson.png'
+import doctorDefaultPerson from '@/assets/images/doctorDefaultPerson.png'
 
-  const navigate = useNavigate() 
+// import BaseIcon from '@/components/base/base-icon/BaseIcon'
 
-  const navigateToDoctorPage = (doctorId) => {
-    console.log(doctorId)
-    navigate(`/doctor/${doctorId}`)
-  }
+function DoctorCard({ firstName, lastName, image, categories, score }) {
+  const imageSource = image ? `data:image/png;base64,${image}` : doctorDefaultPerson
+
   return (
-    <div className={styles['doctor-card']} onClick={navigateToDoctorPage(id)}>
+    <div className={styles['doctor-card']}>
       <img className={styles['doctor-card__image']} src={imageSource} alt={firstName + lastName} />
       <div className={styles['doctor-card__details']}>
         <h3 className={styles['doctor-card__name']}>
           {firstName} {lastName}
         </h3>
-        <span className={styles['doctor-card__category']}>{category}</span>
+        <span className={styles['doctor-card__category']}>{categories}</span>
         <CheapScore score={score} />
       </div>
     </div>
@@ -35,8 +29,7 @@ DoctorCard.propTypes = {
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   image: PropTypes.string,
-  id: PropTypes.string,
-  category: PropTypes.string.isRequired,
+  categories: PropTypes.array.isRequired,
   score: PropTypes.number.isRequired
 }
 
