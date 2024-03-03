@@ -1,7 +1,8 @@
 const titleMap = {
   login: 'Login',
   signup: 'Sign Up',
-  'top-doctors': 'Top Doctors'
+  'top-doctors': 'Top Doctors',
+  '/doctor': 'Doctor Detail'
 }
 
 function useRouteTitle(pathName) {
