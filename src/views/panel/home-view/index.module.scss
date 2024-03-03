@@ -69,3 +69,10 @@
     @include customScrollBar();
   }
 }
+
+.top-doctor-list {
+  &__card-wrapper {
+    border: solid 1px var(--color-background-tertiary);
+    border-radius: $border-radius-sm;
+  }
+}

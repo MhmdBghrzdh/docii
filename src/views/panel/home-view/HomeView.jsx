@@ -9,6 +9,7 @@ import DoctorCard from '@/components/view-components/panel/home/doctor-card/Doct
 
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import {
   getTopScoreDoctors,
@@ -23,6 +24,7 @@ function HomeView() {
   const [isLoading, setIsLoading] = useState(false)
   const DoctorStore = useSelector((state) => state.doctor)
   const effectRan = useRef(true)
+  const navigate = useNavigate()
 
   const dispatch = useDispatch()
 
@@ -65,6 +67,11 @@ function HomeView() {
     const image = response?.payload?.result
     dispatch(setImageInTopDoctors({ image, index }))
   }
+
+  const navigateToDoctorPage = (doctorId) => {
+    navigate(`/doctor/${doctorId}`)
+  }
+
   return (
     !isLoading && (
       <div className={style['home-view']}>
@@ -94,20 +101,25 @@ function HomeView() {
         <section className={style['home-view__top-doctor-container']}>
           <div className={style['home-view__top-doctor-header']}>
             <h3 className={style['home-view__top-doctor-title']}>Top Doctor</h3>
-            <Link className={style['home-view__top-doctor-all']} to={'/doctor/top-doctors'}>
+            <Link className={style['home-view__top-doctor-all']} to={'/top-doctors'}>
               See all
             </Link>
           </div>
           <div className={style['home-view__top-doctor-list']}>
             {DoctorStore.topDoctors.map((doctor) => (
-              <DoctorCard
-                firstName={doctor.firstName}
-                lastName={doctor.lastName}
-                image={doctor.image}
-                category={doctor.categories[0]}
-                score={doctor.score}
+              <div
+                className={style['top-doctor-list__card-wrapper']}
                 key={doctor.id}
-              />
+                onClick={() => navigateToDoctorPage(doctor.id)}
+              >
+                <DoctorCard
+                  firstName={doctor.firstName}
+                  lastName={doctor.lastName}
+                  image={doctor.image}
+                  categories={doctor.categories}
+                  score={doctor.score}
+                />
+              </div>
             ))}
           </div>
         </section>

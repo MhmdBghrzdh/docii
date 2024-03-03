@@ -2,6 +2,7 @@ import style from './index.module.scss'
 
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import DoctorCard from '@/components/view-components/panel/doctors/doctor-card/DoctorCard'
 
@@ -61,19 +62,29 @@ function TopDoctorsView() {
     dispatch(setImageInTopDoctors({ image, index }))
   }
 
+  const navigate = useNavigate()
+
+  const navigateToDoctorPage = (doctorId) => {
+    navigate(`/doctor/${doctorId}`)
+  }
+
   return (
     !isLoading && (
       <div className={style['top-doctors']}>
         {DoctorStore.topDoctors.map((doctor) => (
-          <DoctorCard
-            firstName={doctor.firstName}
-            lastName={doctor.lastName}
-            image={doctor.image}
-            category={doctor.categories[0]}
-            score={doctor.score}
-            id={doctor.id}
+          <div
+            className={style['top-doctors__card-wrapper']}
             key={doctor.id}
-          />
+            onClick={() => navigateToDoctorPage(doctor.id)}
+          >
+            <DoctorCard
+              firstName={doctor.firstName}
+              lastName={doctor.lastName}
+              image={doctor.image}
+              categories={doctor.categories}
+              score={doctor.score}
+            />
+          </div>
         ))}
       </div>
     )
