@@ -1,4 +1,4 @@
-import './index.scss'
+import './index.module.scss'
 
 function SchedulesView() {
   return <div>Schedules</div>

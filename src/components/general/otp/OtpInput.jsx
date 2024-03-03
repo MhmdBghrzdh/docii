@@ -1,4 +1,4 @@
-import './index.scss'
+import style from './index.module.scss'
 import PropTypes from 'prop-types'
 import { createRef, useRef, useEffect } from 'react'
 
@@ -56,7 +56,7 @@ function OtpInput({ name, numberOfInputs, control, rules, setIsOtpCompleted }) {
     const inputName = `${name}[${index}]`
     inputs.push(
       <input
-        className="otp-inputs__input"
+        className={style['otp-inputs__input']}
         key={inputName}
         name={inputName}
         type="tel"
@@ -68,7 +68,7 @@ function OtpInput({ name, numberOfInputs, control, rules, setIsOtpCompleted }) {
     )
   })
 
-  return <div className="otp-inputs">{inputs}</div>
+  return <div className={style['otp-inputs']}>{inputs}</div>
 }
 
 export default OtpInput

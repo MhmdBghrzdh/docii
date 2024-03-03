@@ -1,4 +1,4 @@
-import './index.scss'
+import style from './index.module.scss'
 import { Outlet } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify'
 import { useLocation } from 'react-router-dom'
@@ -15,9 +15,9 @@ function DefaultLayout() {
   const hasNavbar = useNavbar(location.pathname)
 
   return (
-    <div className="default-layout">
+    <div className={style['default-layout']}>
       <TheHeader title={title} prependIcon="ArrowLeft" />
-      <main className="default-layout__main">
+      <main className={style['default-layout__main']}>
         <Outlet />
       </main>
       {hasNavbar && <TheNavBar />}

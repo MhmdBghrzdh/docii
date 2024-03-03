@@ -1,4 +1,4 @@
-import './index.scss'
+import style from './index.module.scss'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -13,15 +13,15 @@ function TheHeader({ title, prependIcon, appendIcon }) {
   }
   return (
     title && (
-      <header className="header">
+      <header className={style["header"]}>
         {prependIcon && (
-          <div className="header__icon" onClick={pushToPreviousRoute}>
+          <div className={style['header__icon']} onClick={pushToPreviousRoute}>
             <BaseIcon name={prependIcon} />
           </div>
         )}
-        <h1 className="header__title">{title}</h1>
+        <h1 className={style['header__title']}>{title}</h1>
         {appendIcon && (
-          <div className="header__icon">
+          <div className={style['header__icon']}>
             <BaseIcon name={appendIcon} />
           </div>
         )}

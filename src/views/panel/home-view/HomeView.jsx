@@ -1,4 +1,4 @@
-import './index.scss'
+import style from './index.module.scss'
 import { Link } from 'react-router-dom'
 
 import BaseButton from '@/components/base/base-button/BaseButton'
@@ -9,62 +9,22 @@ import DoctorCard from '@/components/view-components/panel/home/doctor-card/Doct
 
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import {
-  getCategories,
-  setCategories,
-  setImageInCategory
-} from '@/stores/general/category/categorySlice'
+  getTopScoreDoctors,
+  setTopScoreDoctors,
+  setImageInTopDoctors
+} from '@/stores/doctor/doctorSlice'
 import { getFile } from '@/stores/general/file/fileSlice'
 
+import { GENERAL_CATEGORIES } from '@/constants/common/panel/home/views/general-categories.constants'
+
 function HomeView() {
-  const testDoctorList = [
-    {
-      name: 'Dr. Marcus Horizon',
-      category: 'Chardiologist',
-      image: 'src/assets/images/doctor-test.png',
-      score: 4.7
-    },
-    {
-      name: 'Dr. Marcus Horizon',
-      category: 'Chardiologist',
-      image: 'src/assets/images/doctor-test.png',
-      score: 4.7
-    },
-    {
-      name: 'Dr. Marcus Horizon',
-      category: 'Chardiologist',
-      image: 'src/assets/images/doctor-test.png',
-      score: 4.7
-    },
-    {
-      name: 'Dr. Marcus Horizon',
-      category: 'Chardiologist',
-      image: 'src/assets/images/doctor-test.png',
-      score: 4.7
-    },
-    {
-      name: 'Dr. Marcus Horizon',
-      category: 'Chardiologist',
-      image: 'src/assets/images/doctor-test.png',
-      score: 4.7
-    },
-    {
-      name: 'Dr. Marcus Horizon',
-      category: 'Chardiologist',
-      image: 'src/assets/images/doctor-test.png',
-      score: 4.7
-    },
-    {
-      name: 'Dr. Marcus Horizon',
-      category: 'Chardiologist',
-      image: 'src/assets/images/doctor-test.png',
-      score: 4.7
-    }
-  ]
-  const categoryStore = useSelector((state) => state.category.categories)
   const [isLoading, setIsLoading] = useState(false)
+  const DoctorStore = useSelector((state) => state.doctor)
   const effectRan = useRef(true)
+  const navigate = useNavigate()
 
   const dispatch = useDispatch()
 
@@ -73,24 +33,27 @@ function HomeView() {
       const fetchHomePageData = async () => {
         try {
           setIsLoading(true)
-          const response = await dispatch(getCategories())
+          const response = await dispatch(getTopScoreDoctors())
+          if (response?.error) throw new Error()
 
-          const categories = response?.payload?.result
+          const topDoctors = response?.payload?.result
 
-          dispatch(setCategories(categories))
+          dispatch(setTopScoreDoctors(topDoctors))
 
-          for (let index = 0; index < categories.length; index++) {
-            const response = await dispatch(getFile(categories[index].link))
-            const image = response?.payload?.result
-            dispatch(setImageInCategory({ image, index }))
+          let topDoctorList = []
+
+          for (let index = 0; index < topDoctors.length; index++) {
+            if (topDoctors[index].link) topDoctorList.push(getFiles(topDoctors, index))
           }
+
+          await Promise.all(topDoctorList)
         } catch (error) {
           console.log(error)
         } finally {
           setIsLoading(false)
         }
       }
-      fetchHomePageData()
+      if (!DoctorStore.topDoctors.length) fetchHomePageData()
 
       return () => {
         effectRan.current = false
@@ -98,53 +61,65 @@ function HomeView() {
     }
   }, [])
 
+  const getFiles = async (topDoctors, index) => {
+    const response = await dispatch(getFile(topDoctors[index].link))
+    if (response?.error) throw new Error(response)
+    const image = response?.payload?.result
+    dispatch(setImageInTopDoctors({ image, index }))
+  }
+
+  const navigateToDoctorPage = (doctorId) => {
+    navigate(`/doctor/${doctorId}`)
+  }
+
   return (
     !isLoading && (
-      <div className="home-view">
-        <div className="home-view__header">
-          <span className="home-view__header-text">
+      <div className={style['home-view']}>
+        <div className={style['home-view__header']}>
+          <span className={style['home-view__header-text']}>
             Find your desire <br /> health solution
           </span>
-          <div className="home-view__header-icon">
+          <div className={style['home-view__header-icon']}>
             <BaseIcon name="Notification" />
           </div>
         </div>
         <SearchBar placeholder="Search doctor, drugs, articles..." />
-        <section className="home-view__categories">
-          {categoryStore.map((category) => (
-            <Category
-              title={category.name}
-              key={category._id}
-              image={category.image}
-              isLoading={isLoading}
-            />
+        <section className={style['home-view__categories']}>
+          {GENERAL_CATEGORIES.map((category) => (
+            <Category title={category.name} key={category.name} image={category.image} />
           ))}
         </section>
-        <section className="home-view__ads">
-          <div className="home-view__ads-content">
-            <h2 className="home-view__ads-text">
+        <section className={style['home-view__ads']}>
+          <div className={style['home-view__ads-content']}>
+            <h2 className={style['home-view__ads-text']}>
               Early protection for <br /> your family health
             </h2>
             <BaseButton isBlock={false}>Learn more </BaseButton>
           </div>
           <img src="src\assets\images\doctor-ads-woman.png" alt="doctor" />
         </section>
-        <section className="home-view__top-doctor-container">
-          <div className="home-view__top-doctor-header">
-            <h3 className="home-view__top-doctor-title">Top Doctor</h3>
-            <Link className="home-view__top-doctor-all" to={'/top-doctors'}>
+        <section className={style['home-view__top-doctor-container']}>
+          <div className={style['home-view__top-doctor-header']}>
+            <h3 className={style['home-view__top-doctor-title']}>Top Doctor</h3>
+            <Link className={style['home-view__top-doctor-all']} to={'/top-doctors'}>
               See all
             </Link>
           </div>
-          <div className="home-view__top-doctor-list">
-            {testDoctorList.map((doctor, index) => (
-              <DoctorCard
-                name={doctor.name}
-                image={doctor.image}
-                category={doctor.category}
-                score={doctor.score}
-                key={index}
-              />
+          <div className={style['home-view__top-doctor-list']}>
+            {DoctorStore.topDoctors.map((doctor) => (
+              <div
+                className={style['top-doctor-list__card-wrapper']}
+                key={doctor.id}
+                onClick={() => navigateToDoctorPage(doctor.id)}
+              >
+                <DoctorCard
+                  firstName={doctor.firstName}
+                  lastName={doctor.lastName}
+                  image={doctor.image}
+                  categories={doctor.categories}
+                  score={doctor.score}
+                />
+              </div>
             ))}
           </div>
         </section>

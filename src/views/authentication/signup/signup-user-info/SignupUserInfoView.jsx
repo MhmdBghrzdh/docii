@@ -1,4 +1,4 @@
-import './index.scss'
+import style from './index.module.scss'
 
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -11,7 +11,7 @@ import BaseTextInput from '@/components/base/base-text-input/BaseTextInput'
 import BaseButton from '@/components/base/base-button/BaseButton'
 import BaseCheckBox from '@/components/base/base-check-box/BaseCheckBox'
 
-import { setProfile } from '@/stores/general/profile/profileSlice'
+import { setProfile } from '@/stores/profile/profileSlice'
 import { signup } from '@/stores/authentication/signup/signupSlice'
 
 import { signupMapper } from '@/mappers/authentication'
@@ -56,7 +56,7 @@ function SignupUserInfoView() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="signup-form">
+    <form onSubmit={handleSubmit(onSubmit)} className={style['signup-form']}>
       <BaseTextInput
         placeholder="Enter your national code"
         prependIcon="Barcode"
@@ -94,15 +94,14 @@ function SignupUserInfoView() {
         rules={{ validate: passwordValidation }}
       />
       <BaseCheckBox name="acceptTerms" control={control}>
-        <p className="signup-form__terms">
+        <p className={style['signup-form__terms']}>
           {' '}
-          I agree to the medidoc <mark className="signup-form__text-mark">
-            Terms of Service
-          </mark>{' '}
-          and <mark className="signup-form__text-mark">Privacy Policy</mark>
+          I agree to the medidoc{' '}
+          <mark className={style['signup-form__text-mark']}>Terms of Service</mark> and{' '}
+          <mark className={style['signup-form__text-mark']}>Privacy Policy</mark>
         </p>
       </BaseCheckBox>
-      <div className="signup-form__submit-wrapper">
+      <div className={style['signup-form__submit-wrapper']}>
         <BaseButton type="submit" isLoading={isLoading} disabled={!watch('acceptTerms')}>
           Sign Up
         </BaseButton>

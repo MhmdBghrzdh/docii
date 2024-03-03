@@ -1,9 +1,8 @@
 .doctor-card {
   @include flex(column);
+  cursor: pointer;
   gap: space(2);
   padding: space(4);
-  border: solid 1px var(--color-background-tertiary);
-  border-radius: $border-radius-sm;
   &__image {
     margin: auto;
     border-radius: $border-radius-circle;

@@ -1,0 +1,30 @@
+.doctor-view {
+  @include flex(column);
+  gap: space(3);
+  &__about-wrapper {
+    @include flex(column);
+    gap: space(3);
+  }
+  &__about-title {
+    color: var(--color-text-primary-700);
+    @include typography(title-large);
+    text-align: left;
+  }
+  &__about-description {
+    color: var(--color-text-primary-700);
+    @include typography(body-medium);
+    text-align: left;
+    white-space: wrap;
+  }
+  &__appointment-times {
+    @include flex();
+    @include hide-scrollbar;
+    @include customScrollBar();
+    margin: space(5) 0;
+    gap: space(3);
+    width: 100%;
+    overflow-x: auto;
+  }
+  &__date-chip-wrapper {
+  }
+}

@@ -1,4 +1,4 @@
-import './index.scss'
+import style from './index.module.scss'
 
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -9,7 +9,7 @@ import BaseTextInput from '@/components/base/base-text-input/BaseTextInput'
 import BaseButton from '@/components/base/base-button/BaseButton'
 
 import { requestOtp } from '@/stores/general/otp/otpSlice'
-import { setPhoneNumber } from '@/stores/general/profile/profileSlice'
+import { setPhoneNumber } from '@/stores/profile/profileSlice'
 
 import { requestOtpMapper } from '@/mappers/authentication'
 
@@ -38,7 +38,7 @@ function SignupPhoneNumberView() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="signup-form">
+    <form onSubmit={handleSubmit(onSubmit)} className={style['signup-form']}>
       <BaseTextInput
         placeholder="Enter your phone number"
         prependIcon="Phone"
@@ -53,7 +53,7 @@ function SignupPhoneNumberView() {
           }
         }}
       />
-      <div className="signup-form__submit-wrapper">
+      <div className={style['signup-form__submit-wrapper']}>
         <BaseButton type="submit" isLoading={isLoading}>
           Sign Up
         </BaseButton>

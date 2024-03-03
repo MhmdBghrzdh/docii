@@ -1,4 +1,4 @@
-import './index.scss'
+import style from  './index.module.scss'
 
 import PropTypes from 'prop-types'
 
@@ -9,16 +9,16 @@ const BaseCheckBox = ({ name, control, rules, children }) => {
   const handleCheckboxClick = () => {
     field.onChange(!field.value)
   }
-  const checkBoxInputModifier = field.value ? 'base-checkbox__input_active' : ''
+  const checkBoxInputModifier = field.value ? style['base-checkbox__input_active'] : ''
 
   return (
-    <div className="base-checkbox" onClick={handleCheckboxClick}>
+    <div className={style["base-checkbox"]} onClick={handleCheckboxClick}>
       <input
         {...field}
         type="checkbox"
-        className={`base-checkbox__input ${checkBoxInputModifier}`}
+        className={[`${style['base-checkbox__input']} ${checkBoxInputModifier}`]}
       />
-      <p className="base-checkbox__text">{children}</p>
+      <p className={style["base-checkbox__text"]}>{children}</p>
     </div>
   )
 }

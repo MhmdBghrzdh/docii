@@ -25,9 +25,7 @@ function HomeView() {
   }
   return (
     <div onClick={logOut}>
-      <BaseButton isLoading={isLoading} >
-        Logout
-      </BaseButton>
+      <BaseButton isLoading={isLoading}>Logout</BaseButton>
     </div>
   )
 }

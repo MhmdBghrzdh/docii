@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom'
-// import { Bounce, ToastContainer } from 'react-toastify'
 
 import DefaultLayout from '@/layouts/default-layout/DefaultLayout'
 import SignupPhoneNumberView from '@/views/authentication/signup/signup-phone-number/SignupPhoneNumberView'
@@ -12,6 +11,8 @@ import HomeView from '@/views/panel/home-view/HomeView'
 import MessagesView from '@/views/panel/messages/MessagesView'
 import ProfileView from '@/views/panel/profile/ProfileView'
 import ScheduleView from '@/views/panel/schedules/ScheduleView'
+import TopDoctorsView from '@/views/panel/doctors/top-doctors/TopDoctorsView'
+import DoctorView from '@/views/panel/doctors/doctor/DoctorView'
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,14 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <ProfileView />
+      },
+      {
+        path: '/top-doctors',
+        element: <TopDoctorsView />
+      },
+      {
+        path: '/doctor/:doctorId',
+        element: <DoctorView />
       }
     ]
   }

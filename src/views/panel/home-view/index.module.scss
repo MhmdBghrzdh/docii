@@ -1,6 +1,7 @@
 .home-view {
   @include flex(column);
   gap: space(8);
+  margin-bottom: 70px;
   &__header {
     @include flex($justify: space-between);
     width: 100%;
@@ -66,5 +67,12 @@
     overflow-x: auto;
     @include hide-scrollbar;
     @include customScrollBar();
+  }
+}
+
+.top-doctor-list {
+  &__card-wrapper {
+    border: solid 1px var(--color-background-tertiary);
+    border-radius: $border-radius-sm;
   }
 }

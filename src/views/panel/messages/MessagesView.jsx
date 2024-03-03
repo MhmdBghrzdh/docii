@@ -1,4 +1,4 @@
-import './index.scss'
+import './index.module.scss'
 
 function MessagesView() {
   return <div>Messages</div>

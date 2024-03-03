@@ -1,7 +1,7 @@
 import LoadingSpinner from '@/components/general/loading-spinner/LoadingSpinner'
 
 import PropTypes from 'prop-types'
-import './index.scss'
+import style from './index.module.scss'
 
 function BaseButton({
   variant = 'filled',
@@ -11,10 +11,10 @@ function BaseButton({
   disabled = false,
   children
 }) {
-  const buttonBaseClass = 'base-button'
-  const buttonVariant = `base-button_${variant}`
-  const buttonIsBlock = isBlock ? 'base-button_block' : ''
-  const buttonLoading = isLoading ? 'base-button_loading' : ''
+  const buttonBaseClass = style['base-button']
+  const buttonVariant = style[`base-button_${variant}`]
+  const buttonIsBlock = isBlock ? style['base-button_block'] : ''
+  const buttonLoading = isLoading ? style['base-button_loading'] : ''
 
   return (
     <button

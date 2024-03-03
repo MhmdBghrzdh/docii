@@ -1,4 +1,4 @@
-import './index.scss'
+import style from './index.module.scss'
 
 import PropTypes from 'prop-types'
 
@@ -19,26 +19,33 @@ const BaseTextInput = ({
     field,
     formState: { errors }
   } = useController({ name, control, rules })
-  const BaseTextInputError = errors[name] ? 'base-input_error' : ''
+  const BaseTextInputError = errors[name] ? style['base-input_error'] : ''
   return (
-    <div className={`base-input ${BaseTextInputError}`}>
+    <div className={`${style['base-input']} ${BaseTextInputError}`}>
       {label && (
-        <label htmlFor={name} className="base-input__label">
+        <label htmlFor={name} className={style['base-input__label']}>
           {label}
         </label>
       )}
       {prependIcon && (
-        <div className="base-input__icon">
+        <div className={style['base-input__icon']}>
           <BaseIcon name={prependIcon} />
         </div>
       )}
-      <input {...field} {...props} placeholder={placeholder} className="base-input__input" />
+      <input
+        {...field}
+        {...props}
+        placeholder={placeholder}
+        className={style['base-input__input']}
+      />
       {appendIcon && (
-        <div className="base-input__icon">
+        <div className={style['base-input__icon']}>
           <BaseIcon name={appendIcon} />
         </div>
       )}
-      {errors[name] && <span className="base-input__error-message">{errors[name].message}</span>}
+      {errors[name] && (
+        <span className={style['base-input__error-message']}>{errors[name].message}</span>
+      )}
     </div>
   )
 }
