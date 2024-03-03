@@ -17,3 +17,12 @@ export const getTopDoctors = (params) => {
 
   return axiosInstance.get(url, config)
 }
+
+export const getDoctorById = (params) => {
+  const config = {
+    params
+  }
+  const url = generateUrl('doctor')
+
+  return axiosInstance.get(url, config)
+}

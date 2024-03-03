@@ -1,6 +1,7 @@
-import { getAllDoctors, getTopDoctors } from './doctor.service'
+import { getAllDoctors, getTopDoctors, getDoctorById } from './doctor.service'
 
 export default {
   getAllDoctors,
-  getTopDoctors
+  getTopDoctors,
+  getDoctorById
 }

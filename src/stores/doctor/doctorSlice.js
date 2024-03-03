@@ -39,4 +39,9 @@ export const getTopScoreDoctors = createAsyncThunk(
   async () => await doctorService.getTopDoctors({ sortBy: 'score' })
 )
 
+export const getDoctorById = createAsyncThunk(
+  'doctor/getDoctorById',
+  async (doctorId) => await doctorService.getDoctorById({ id: doctorId })
+)
+
 export default doctorSlice.reducer
