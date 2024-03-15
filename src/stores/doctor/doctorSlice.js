@@ -44,4 +44,9 @@ export const getDoctorById = createAsyncThunk(
   async (doctorId) => await doctorService.getDoctorById({ id: doctorId })
 )
 
+export const getPresentTimes = createAsyncThunk(
+  'doctor/getPresentTimes',
+  async (payload) => await doctorService.getPresentTimes(payload)
+)
+
 export default doctorSlice.reducer
