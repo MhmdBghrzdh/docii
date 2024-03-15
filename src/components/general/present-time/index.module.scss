@@ -1,12 +1,13 @@
 .present-time {
   @include typography(body-large);
+  @include flex($justify:center);
   --text-color: var(--color-text-primary-700);
   --border-color: var(--color-palette-primary-100);
 
   color: var(--text-color);
   border: solid 1px var(--border-color);
   border-radius: $border-radius-xs;
-  width: 6rem;
+  width: 8rem;
 
   padding: space(2) space(5);
 

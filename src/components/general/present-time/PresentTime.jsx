@@ -2,11 +2,11 @@ import style from './index.module.scss'
 
 import PropTypes from 'prop-types'
 
-function PresentTime({ time, reserved, isActive }) {
+function PresentTime({ time, isActive }) {
   return (
-    <div className={`${style['present-time']} ${isActive ? style['present-time_active'] : ''}`}>
+    <span className={`${style['present-time']} ${isActive ? style['present-time_active'] : ''}`}>
       {time}
-    </div>
+    </span>
   )
 }
 

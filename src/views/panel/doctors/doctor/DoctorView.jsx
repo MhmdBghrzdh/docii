@@ -10,6 +10,8 @@ import DateChip from '@/components/general/date-chip/DateChip'
 import PresentTime from '@/components/general/present-time/PresentTime'
 
 import { getFile } from '@/stores/general/file/fileSlice'
+import { reserveDoctor } from '@/stores/profile/profileSlice.js'
+import BaseButton from '@/components/base/base-button/BaseButton.jsx'
 
 function DoctorView() {
   const effectRan = useRef(true)
@@ -17,7 +19,7 @@ function DoctorView() {
   const [doctor, setDoctor] = useState({})
   const [activeDateChip, setActiveDateChip] = useState(null)
   const [activePresentTime, setActivePresentTime] = useState(null)
-
+  const [submitButtonDisable, setSubmitButtonDisable] = useState(true)
   const [appointmentTimes, setAppointmentTimes] = useState([])
   const [presentTimes, setPresentTimes] = useState([])
   const { doctorId } = useParams()
@@ -57,6 +59,11 @@ function DoctorView() {
     }
   }, [])
 
+  useEffect(() => {
+    if (activePresentTime && activeDateChip)
+      setSubmitButtonDisable(false)
+    else setSubmitButtonDisable(true)
+  }, [activePresentTime, activeDateChip])
   const calculateAppointmentTimes = (endTime) => {
     const startDate = new Date()
     const endDate = new Date(endTime)
@@ -81,6 +88,7 @@ function DoctorView() {
 
   const handleDateClick = async (date) => {
     setActiveDateChip(date)
+    setActivePresentTime(null)
     try {
       const response = await dispatch(getPresentTimes({ id: doctorId, date }))
       if (response?.error) throw new Error(response)
@@ -94,6 +102,13 @@ function DoctorView() {
     setActivePresentTime(id)
   }
 
+  const reserve = async () => {
+    try {
+      await dispatch(reserveDoctor({ id: activePresentTime }))
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     !isLoading && (
       <div className={style['doctor-view']}>
@@ -125,8 +140,9 @@ function DoctorView() {
         <div className={style['doctor-view__present-times']}>
           {presentTimes.map((presentTime) => {
             return (
-              <div
+              <button
                 key={presentTime.id}
+                disabled={presentTime.reserved}
                 onClick={() => handleTimeClick(presentTime.id)}
                 className={`${style['doctor-view__present-times-wrapper']} ${
                   presentTime.reserved ? style['doctor-view__present-times-wrapper_disabled'] : ''
@@ -137,10 +153,16 @@ function DoctorView() {
                   reserved={presentTime.reserved}
                   isActive={activePresentTime === presentTime.id}
                 />
-              </div>
+              </button>
             )
           })}
         </div>
+        <div className={style['doctor-view__submit-btn']} onClick={() => reserve()}>
+          <BaseButton type="submit" isLoading={isLoading} disabled={submitButtonDisable}>
+            Book Appointment
+          </BaseButton>
+        </div>
+
       </div>
     )
   )
