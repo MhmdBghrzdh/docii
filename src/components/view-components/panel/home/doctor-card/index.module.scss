@@ -3,6 +3,7 @@
   cursor: pointer;
   gap: space(2);
   padding: space(4);
+  min-width: 150px;
   &__image {
     margin: auto;
     border-radius: $border-radius-circle;

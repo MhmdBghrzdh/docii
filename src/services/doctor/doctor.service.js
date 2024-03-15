@@ -26,3 +26,13 @@ export const getDoctorById = (params) => {
 
   return axiosInstance.get(url, config)
 }
+
+export const getPresentTimes = (params) => {
+  const config = {
+    params
+  }
+  const url = generateUrl('doctor/present/time')
+
+  return axiosInstance.get(url, config)
+}
+
