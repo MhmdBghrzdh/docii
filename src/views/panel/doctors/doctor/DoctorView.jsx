@@ -8,10 +8,12 @@ import { useParams } from 'react-router-dom'
 import DoctorCard from '@/components/view-components/panel/doctors/doctor-card/DoctorCard'
 import DateChip from '@/components/general/date-chip/DateChip'
 import PresentTime from '@/components/general/present-time/PresentTime'
+import BaseButton from '@/components/base/base-button/BaseButton.jsx'
 
 import { getFile } from '@/stores/general/file/fileSlice'
 import { reserveDoctor } from '@/stores/profile/profileSlice.js'
-import BaseButton from '@/components/base/base-button/BaseButton.jsx'
+
+import { toast } from 'react-toastify'
 
 function DoctorView() {
   const effectRan = useRef(true)
@@ -105,6 +107,7 @@ function DoctorView() {
   const reserve = async () => {
     try {
       await dispatch(reserveDoctor({ id: activePresentTime }))
+      toast.success('successfully reserved')
     } catch (error) {
       console.log(error)
     }
