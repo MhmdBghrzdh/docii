@@ -106,7 +106,8 @@ function DoctorView() {
 
   const reserve = async () => {
     try {
-      await dispatch(reserveDoctor({ id: activePresentTime }))
+     const response =  await dispatch(reserveDoctor({ id: activePresentTime }))
+      if(response?.error) throw new Error(response)
       toast.success('successfully reserved')
     } catch (error) {
       console.log(error)
