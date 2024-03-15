@@ -16,6 +16,11 @@
     text-align: left;
     white-space: wrap;
   }
+  &__divider {
+    background-color: var(--color-text-primary-700);
+    width: 100%;
+    height: 1.5px;
+  }
   &__appointment-times {
     @include flex();
     @include hide-scrollbar;
@@ -25,6 +30,18 @@
     width: 100%;
     overflow-x: auto;
   }
-  &__date-chip-wrapper {
+  &__present-times {
+    width: 100%;
+    @include flex($wrap: wrap, $justify: start);
+    gap: space(5);
+    padding: space(3) 0;
+  }
+  &__present-times-wrapper {
+    cursor: pointer;
+
+    &_disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
   }
 }
