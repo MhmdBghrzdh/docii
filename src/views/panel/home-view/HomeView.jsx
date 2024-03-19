@@ -6,6 +6,7 @@ import BaseIcon from '@/components/base/base-icon/BaseIcon'
 import SearchBar from '@/components/general/search-bar/SearchBar'
 import Category from '@/components/view-components/panel/category/Category'
 import DoctorCard from '@/components/view-components/panel/home/doctor-card/DoctorCard'
+import DoctorImage from '@/assets/images/doctor-ads-woman.png'
 
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -96,7 +97,7 @@ function HomeView() {
             </h2>
             <BaseButton isBlock={false}>Learn more </BaseButton>
           </div>
-          <img src="src\assets\images\doctor-ads-woman.png" alt="doctor" />
+          <img src={DoctorImage} alt="doctor" />
         </section>
         <section className={style['home-view__top-doctor-container']}>
           <div className={style['home-view__top-doctor-header']}>
