@@ -1,6 +1,6 @@
 .present-time {
   @include typography(body-large);
-  @include flex($justify:center);
+  @include flex($justify: center);
   --text-color: var(--color-text-primary-700);
   --border-color: var(--color-palette-primary-100);
 
@@ -8,6 +8,8 @@
   border: solid 1px var(--border-color);
   border-radius: $border-radius-xs;
   width: 8rem;
+  cursor: pointer;
+  background-color: transparent;
 
   padding: space(2) space(5);
 
@@ -16,4 +18,11 @@
     --border-color: var(--color-palette-primary-400);
     --text-color: var(--color-text-secondary-100);
   }
+
+  &_disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+
+
 }
