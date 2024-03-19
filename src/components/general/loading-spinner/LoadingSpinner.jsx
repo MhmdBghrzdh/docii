@@ -1,16 +1,26 @@
 import style from './index.module.scss'
 
-// TODO : add count props for counting bullets
+import PropTypes from 'prop-types'
 
-function LoadingSpinner() {
+import { Bars } from 'react-loader-spinner'
+
+function LoadingSpinner({ height = 50, width = 200, color = 'var(--color-background-primary)', className = '' }) {
   return (
-    <div className={style['loading-spinner']}>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+    <Bars
+      height={height}
+      width={width}
+      color={color}
+      wrapperStyle={className}
+      wrapperClass=""
+    />
   )
 }
 
+LoadingSpinner.propTypes = {
+  height: PropTypes.number,
+  width: PropTypes.number,
+  color: PropTypes.string,
+  className: PropTypes.string
+
+}
 export default LoadingSpinner
