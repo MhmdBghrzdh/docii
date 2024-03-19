@@ -4,13 +4,15 @@ import PropTypes from 'prop-types'
 import style from './index.module.scss'
 
 function BaseButton({
-  variant = 'filled',
-  isBlock = true,
-  isLoading = false,
-  type = 'button',
-  disabled = false,
-  children
-}) {
+                      variant = 'filled',
+                      isBlock = true,
+                      isLoading = false,
+                      type = 'button',
+                      disabled = false,
+                      className = '',
+                      onClick,
+                      children
+                    }) {
   const buttonBaseClass = style['base-button']
   const buttonVariant = style[`base-button_${variant}`]
   const buttonIsBlock = isBlock ? style['base-button_block'] : ''
@@ -18,9 +20,10 @@ function BaseButton({
 
   return (
     <button
-      className={`${buttonBaseClass} ${buttonVariant} ${buttonIsBlock} ${buttonLoading}`}
+      className={`${buttonBaseClass} ${buttonVariant} ${buttonIsBlock} ${buttonLoading} ${className}`}
       type={type}
       disabled={disabled}
+      onClick={onClick}
     >
       {isLoading ? <LoadingSpinner /> : children}
     </button>
@@ -34,5 +37,7 @@ BaseButton.propTypes = {
   isLoading: PropTypes.bool,
   type: PropTypes.string,
   children: PropTypes.string,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  className: PropTypes.string,
+  onClick: PropTypes.func
 }
