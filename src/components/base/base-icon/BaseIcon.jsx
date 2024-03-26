@@ -3,7 +3,7 @@ import { ReactSVG } from 'react-svg'
 
 import PropTypes from 'prop-types'
 
-function BaseIcon({ name }) {
+function BaseIcon({ name, className }) {
   const [Icon, setIcon] = useState(null)
 
   useEffect(() => {
@@ -19,11 +19,12 @@ function BaseIcon({ name }) {
     importIcon()
   }, [name])
 
-  return Icon ? <ReactSVG src={Icon} /> : null
+  return Icon ? <ReactSVG src={Icon} className={className} /> : null
 }
 
 BaseIcon.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  className: PropTypes.string
 }
 
 export default BaseIcon
